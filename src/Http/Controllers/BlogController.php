@@ -203,7 +203,7 @@ class BlogController extends Controller
 
 		// create a blog from the form data
 		$blog = Blog::create($data);
-	
+
 		// 	slugify the slug string
 		$slug = str_slug($request->input('slug'));
 		// make sure the slug is unique
