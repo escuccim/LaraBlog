@@ -250,11 +250,10 @@ class BlogController extends Controller
 	}
 
 	private function isUserAdmin(){
-	if(Auth::guest())
-		return false;
-	else {
-		return (Auth::user()->isAdmin());
-	}
-}
-
+        if(Auth::guest())
+            return false;
+        else {
+            return (Auth::user()->isAdmin());
+        }
+    }
 }
