@@ -1,12 +1,12 @@
 {
-    "name": "escuccim/blog",
+    "name": "escuccim/larablog",
     "type": "library",
     "description": ":Laravel blog",
     "keywords": [
         "escuccim",
         "blog"
     ],
-    "homepage": "https://github.com/escuccim/blog",
+    "homepage": "https://github.com/escuccim/larablog",
     "license": "MIT",
     "authors": [
         {
