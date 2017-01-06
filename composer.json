@@ -32,12 +32,12 @@
             "src/Models"
         ],
         "psr-4": {
-            "escuccim\\blog\\": "src"
+            "escuccim\\larablog\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "escuccim\\blog\\": "tests"
+            "escuccim\\larablog\\": "tests"
         }
     },
     "scripts": {
