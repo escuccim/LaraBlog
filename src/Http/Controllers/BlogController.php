@@ -1,16 +1,16 @@
 <?php
 
-namespace Escuccim\Blog\Http\Controllers;
+namespace Escuccim\LaraBlog\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Escuccim\Blog\Models\Blog;
-use Escuccim\Blog\Models\Tag;
-use App\Http\Requests;
+use Escuccim\LaraBlog\Models\Blog;
+use Escuccim\LaraBlog\Models\Tag;
+use Escuccim\LaraBlog\Models\BlogComment;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\BlogRequest;
+use Escuccim\LaraBlog\Requests\BlogRequest;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
-use Escuccim\Blog\Models\BlogComment;
+
 
 class BlogController extends Controller
 {

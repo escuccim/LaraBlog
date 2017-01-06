@@ -1,9 +1,9 @@
 <?php
 
-namespace Escuccim\Blog\Http\Controllers;
+namespace Escuccim\LaraBlog\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Blog;
+use Escuccim\LaraBlog\Models\Blog;
 use App\Http\Controllers\Controller;
 
 class FeedController extends Controller

@@ -1,12 +1,11 @@
 <?php
 
-namespace Escuccim\Blog\Models;
+namespace Escuccim\LaraBlog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 
 class Blog extends Model
 {
@@ -56,12 +55,12 @@ class Blog extends Model
     }
     
     public function comments(){
-    	return $this->hasMany('Escuccim\Blog\Models\BlogComment');
+    	return $this->hasMany('Escuccim\LaraBlog\Models\BlogComment');
     }
     
     /* Get the tags for a given article */
     public function tags() {
-    	return $this->belongsToMany('Escuccim\Blog\Models\Tag');
+    	return $this->belongsToMany('Escuccim\LaraBlog\Models\Tag');
     }
     
     public function getTagListAttribute(){

@@ -1,6 +1,6 @@
 <?php
 
-namespace escuccim\blog;
+namespace Escuccim\LaraBlog;
 
 class SkeletonClass
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Escuccim\Blog\Models;
+namespace Escuccim\LaraBlog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class Tag extends Model
 
 	/* Get the articles associated with this tag */
 	public function blogs(){
-		return $this->belongsToMany('Escuccim\Blog\Models\Blog');
+		return $this->belongsToMany('Escuccim\LaraBlog\Models\Blog');
 	}
 }

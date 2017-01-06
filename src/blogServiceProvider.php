@@ -1,6 +1,6 @@
 <?php
 
-namespace Escuccim\Blog;
+namespace Escuccim\LaraBlog;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
@@ -47,7 +47,7 @@ class blogServiceProvider extends ServiceProvider
      */
     public function setupRoutes(Router $router)
     {
-        $router->group(['namespace' => 'Escuccim\Blog\Http\Controllers'], function($router)
+        $router->group(['namespace' => 'Escuccim\LaraBlog\Http\Controllers'], function($router)
         {
             require __DIR__.'/Http/routes.php';
         });

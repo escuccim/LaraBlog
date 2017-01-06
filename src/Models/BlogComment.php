@@ -1,6 +1,6 @@
 <?php
 
-namespace Escuccim\Blog\Models;
+namespace Escuccim\LaraBlog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
