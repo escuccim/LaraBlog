@@ -196,8 +196,13 @@ class BlogController extends Controller
 	 * I don't remember why I separated this from the store function, since it's not called from anywhere else
 	 **/
 	private function createBlog(Request $request){
+	    // since we don't want to have to update the user model, we need to add the user_id from session to the data from the request
+	    $user = Auth::user();
+        $data  = $request->all();
+        $data['user_id'] = $user->id;
+
 		// create a blog from the form data
-		$blog = Auth::user()->blogs()->create($request->all());
+		$blog = Blog::create($data);
 	
 		// 	slugify the slug string
 		$slug = str_slug($request->input('slug'));
