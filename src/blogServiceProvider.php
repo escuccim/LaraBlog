@@ -29,6 +29,9 @@ class blogServiceProvider extends ServiceProvider
         // use this if your package has routes
         $this->setupRoutes($this->app->router);
 
+        // load our migrations
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+
         // use this if your package needs a config file
         // $this->publishes([
         //         __DIR__.'/config/config.php' => config_path('skeleton.php'),
