@@ -5,6 +5,7 @@ namespace Escuccim\LaraBlog\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class Blog extends Model
@@ -121,7 +122,7 @@ class Blog extends Model
      * Admin page results are never cached.
      */
     public static function blogLinks(){
-    	if(!isUserAdmin()) {
+    	if(Blog::isUserAdmin()) {
 	    	$result = Cache::remember('blog_archives', 120, function(){
 	    		return Blog::getBlogArchives();
 	    	});
@@ -159,4 +160,12 @@ class Blog extends Model
 		
 		return $blogs;
 	}
+
+	public static function isUserAdmin(){
+        if(Auth::guest())
+            return false;
+        else {
+            return (Auth::user()->type);
+        }
+    }
 }

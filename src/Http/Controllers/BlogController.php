@@ -258,7 +258,7 @@ class BlogController extends Controller
         if(Auth::guest())
             return false;
         else {
-            return (Auth::user()->isAdmin());
+            return (Auth::user()->type);
         }
     }
 }

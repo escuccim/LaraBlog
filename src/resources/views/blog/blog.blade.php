@@ -46,10 +46,12 @@
 	</div>	
 	
 	<div class="col-md-2">
-		@if(isUserAdmin())
+		@if(!Auth::guest())
+			@if(Auth::user()->type)
 			<div class="text-right">
 				<a href="/blog/create" class="btn btn-primary vcenter">Add Blog Post</a>
 			</div>
+			@endif
 		@endif
 		
 		@include('escuccim::blog.archives')
