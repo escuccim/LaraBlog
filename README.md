@@ -27,12 +27,28 @@ Once you have installed this, run the migrations which will create the necessary
 php artisan migrate
 ``` 
 Register Laravel forms, flash, feed in app.php config
-Register the service provider 
-Register the aliases.
+
+In config/app.php add the following to the providers array:
+```
+Escuccim\LaraBlog\blogServiceProvider::class,
+Collective\Html\HtmlServiceProvider::class,
+Laracasts\Flash\FlashServiceProvider::class,
+Roumen\Feed\FeedServiceProvider::class,
+```
+
+And add the following to the aliases array:
+```
+'Form' => Collective\Html\FormFacade::class,
+'Html' => Collective\Html\HtmlFacade::class,
+'Feed' => Roumen\Feed\Feed::class,
+```
+
+Registered the middleware in app\Http\Kernel.php to the routeMiddleware array:
+```
+'admin' => \Escuccim\LaraBlog\Middleware\AdminMiddleware::class,
+```
 
 Seed the DB (if desired).
-Registered the middleware in kernel.php
-
 
 Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to have images you need to add functionality for this yourself.
 
