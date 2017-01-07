@@ -27,6 +27,9 @@ Once you have installed this, run the migrations which will create the necessary
 php artisan migrate
 ``` 
 
+Seed the DB (if desired).
+Registered the middleware.
+Register the service provider.
 
 Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to have images you need to add functionality for this yourself.
 
