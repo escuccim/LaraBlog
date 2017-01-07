@@ -33,7 +33,7 @@
             "src/Models"
         ],
         "psr-4": {
-            "escuccim\\larablog\\": "src"
+            "Escuccim\\LaraBlog\\": "src"
         }
     },
     "scripts": {

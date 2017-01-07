@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-
+<div class="container">
 <div class="row">
 	
 	<div class="col-md-10">
@@ -62,5 +62,6 @@
 	<div class="col-md-10 text-center">
 		{{ $blogs->links() }}
 	</div>
+</div>
 </div>
 @endsection
