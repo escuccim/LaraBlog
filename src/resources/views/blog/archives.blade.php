@@ -1,8 +1,3 @@
-<?php 
-	$currentYear = 0;
-	$currentMonth = 0;
-?>
-
 <div class="panel panel-info">
 	<div class="panel-heading">
 		Archives

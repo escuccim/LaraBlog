@@ -15,6 +15,6 @@ class BlogClass
     }
 
     public static function BlogArchives(){
-        
+
     }
 }
