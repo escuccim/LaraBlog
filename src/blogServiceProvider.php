@@ -71,8 +71,6 @@ class blogServiceProvider extends ServiceProvider
     }
     private function registerSkeleton()
     {
-        $this->app['router']->middleware('admin', 'Escuccim\LaraBlog\Middleware\AdminMiddleware');
-
         $this->app->bind('escuccim',function($app){
             return new BlogClass($app);
         });

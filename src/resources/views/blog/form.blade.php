@@ -48,7 +48,6 @@
 </div>
 
 @section('footer')
-	<script src="/js/select2.min.js"></script>
 	<script>
 		new Vue({
 			el: '#app',

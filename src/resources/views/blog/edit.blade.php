@@ -13,7 +13,7 @@
 				<h2>Edit: {!! $blog->title !!}</h2>
 			</div>
 			<div class="panel-body">
-				@include('errors.list')
+				@include('escuccim::errors.list')
 
 				{!! Form::model($blog, ['method' => 'patch', 'class' => 'form-horizontal', 'url' => '/blog/' . $blog->id]) !!}
 					@include('escuccim::blog.form', ['submitButtonText' => 'Update Blog'])

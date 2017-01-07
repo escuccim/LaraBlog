@@ -139,7 +139,7 @@ class BlogController extends Controller
 			return redirect('/blog');
 	
 		// only admin can see non-published blogs
-		if(isUserAdmin())
+		if($this->isUserAdmin())
 			$blogs = $tag->blogs()->latest('published_at')->paginate(15);
 		else
 			$blogs = $tag->blogs()->latest('published_at')->published()->paginate(5);

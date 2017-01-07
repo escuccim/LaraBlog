@@ -1,10 +1,9 @@
 <?php
 
-namespace Escuccim\LaraBlog\Middleware\Middleware;
+namespace Escuccim\LaraBlog\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
 class AdminMiddleware
 {
     /**

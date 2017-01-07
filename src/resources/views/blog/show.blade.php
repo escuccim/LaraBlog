@@ -16,7 +16,8 @@
 				
 				@include('escuccim::blog.tags')
 				
-				@if(isUserAdmin())
+				@if(!Auth::guest())
+					@if(Auth::user()->type)
 					<div class="row">
 						<div align="center">
 							<div class="btn-group">
@@ -27,7 +28,8 @@
 
 							</div>
 						</div>
-					</div>	
+					</div>
+					@endif
 				@endif
 			</div>	
 		</div>		
