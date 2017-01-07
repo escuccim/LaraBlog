@@ -6,38 +6,50 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-qualityB
 
-This is a simple little escuccim that I wrote for myself that I am trying to make into a Laravel package. It is still under development, but seems to be working so far.
+This is a simple little Blog for Laravel that I wrote for myself that I am trying to make into a package. It is still under development, but seems to be working so far.
 
-This has not yet been added to Packagist so don't try to use it that way.
-
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
-
-```
-src/
-
-```
-
+This has not yet been registered with Packagist, so is not available through Composer.
 
 ## Install
+
+This package uses Laravel's Auth, so you must have installed that package prior to installing this.
 
 Via Composer
 
 ``` bash
 $ composer require escuccim/blog
 ```
+NOTE - this is not yet registered with Packagist so will not work with Composer require. You need to add this repository to the repos in composer.json to use it. 
+
+Once you have installed this, run the migrations which will create the necessary database tables and add a few columns to the users table.
+
+``` bash
+php artisan migrate
+``` 
+
+
+Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to have images you need to add functionality for this yourself.
 
 ## Usage
 
+This package includes it's own Routes, Models, Controllers, and Views so should work out of the box. To use it just point the browser to /blog.
+
+If you prefer to write or format your own views I have provided the following static methods on the BlogClass.
 ``` php
-$skeleton = new League\Skeleton();
-echo $skeleton->echoPhrase('Hello, League!');
+$blog = new escuccim\LaraBlog\BlogClass();
+BlogClass::getAllArticles([isUserAdmin]); 
+BlogClass::getArticle('slug');
+BlogClass::getArchives();
+BlogClass::getComments('slug');
 ```
 
-## Change log
+Method getAllArticles takes an optional parameter indicating whether the user is an administrator or not. If not it only returns articles which are published, otherwise it returns all articles.
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Method getArticle takes in the slug for the article desired and returns all the details, regardless of whether the article is published or not.
+
+Method getComments also takes in the slug and returns all comments, regardless of whether the article is published or not.
+
+Method getArchives returns the data used to construct the archive menu as a nested associative array. Note that this data is cached so will not update to reflect changes immediately.
 
 ## Testing
 
@@ -68,10 +80,10 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/escuccim/blog.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/escuccim/blog.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/escuccim/blog
-[link-travis]: https://travis-ci.org/escuccim/blog
-[link-scrutinizer]: https://scrutinizer-ci.com/g/escuccim/blog/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/escuccim/blog
-[link-downloads]: https://packagist.org/packages/escuccim/blog
+[link-packagist]: https://packagist.org/packages/escuccim/larablog
+[link-travis]: https://travis-ci.org/escuccim/larablog
+[link-scrutinizer]: https://scrutinizer-ci.com/g/escuccim/larablog/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/escuccim/larablog
+[link-downloads]: https://packagist.org/packages/escuccim/larablog
 [link-author]: https://github.com/escuccim
 
