@@ -22,6 +22,5 @@ class AdminMiddleware
 	        } 
 		}
 		abort(404, 'Message');
-// 		return redirect('/');
     }
 }
