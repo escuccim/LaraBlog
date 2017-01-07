@@ -65,6 +65,8 @@ Registered the middleware in app\Http\Kernel.php to the routeMiddleware array:
 'admin' => \Escuccim\LaraBlog\Middleware\AdminMiddleware::class,
 ```
 
+**Add header and footer to layout** 
+
 Seed the DB (if desired).
 
 Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to have images you need to add functionality for this yourself.
