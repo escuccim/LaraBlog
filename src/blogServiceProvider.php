@@ -72,7 +72,7 @@ class blogServiceProvider extends ServiceProvider
     private function registerSkeleton()
     {
         $this->app->bind('escuccim',function($app){
-            return new Skeleton($app);
+            return new BlogClass($app);
         });
     }
 }
