@@ -26,7 +26,7 @@ Once you have installed this, run the migrations which will create the necessary
 ``` bash
 php artisan migrate
 ``` 
-
+Register Laravel forms.
 Seed the DB (if desired).
 Registered the middleware.
 Register the service provider.
