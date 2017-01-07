@@ -14,19 +14,36 @@ This has not yet been registered with Packagist, so is not available through Com
 
 This package uses Laravel's Auth, so you must have installed that package prior to installing this.
 
-Via Composer
-
+Via Composer - NOT YET WORKING!
 ``` bash
 $ composer require escuccim/blog
 ```
-NOTE - this is not yet registered with Packagist so will not work with Composer require. You need to add this repository to the repos in composer.json to use it. 
+
+Add the following to composer.json
+```
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/escuccim/LaraBlog"
+    }
+],
+```
+Add to require:
+```
+"escuccim/larablog": "dev-master"
+```
+
+And add to autoload:psr-4
+```
+"Escuccim\\LaraBlog\\": "vendor/escuccim/larablog/src"
+```
 
 Once you have installed this, run the migrations which will create the necessary database tables and add a few columns to the users table.
 
 ``` bash
 php artisan migrate
 ``` 
-Register Laravel forms, flash, feed in app.php config
+Next register the components:
 
 In config/app.php add the following to the providers array:
 ```
