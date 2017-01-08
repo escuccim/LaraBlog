@@ -99,6 +99,8 @@ Method getComments also takes in the slug and returns all comments, regardless o
 
 Method getArchives returns the data used to construct the archive menu as a nested associative array. Note that this data is cached so will not update to reflect changes immediately.
 
+This package also includes an RSS feed which uses the Roumen\Feed package to generate the feed. This is available at /feed.
+
 ## Testing
 
 ``` bash
