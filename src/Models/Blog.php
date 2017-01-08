@@ -28,10 +28,15 @@ class Blog extends Model
      */
     public static function getAll($admin = false){
         $paglen = config('blog.paginator_length', 5);
-    	if(!$admin){
-	    	$result = Cache::remember('blog_posts', 120, function(){
-	    		return Blog::latest('published_at')->orderBy('id', 'desc')->published()->paginate($paglen);
-	    	});
+
+    	if(!$admin) {
+            if (config('blog.cache')) {
+                $result = Cache::remember('blog_posts', 120, function () use ($paglen) {
+                    return Blog::latest('published_at')->orderBy('id', 'desc')->published()->paginate($paglen);
+                });
+            } else {
+                return Blog::latest('published_at')->orderBy('id', 'desc')->published()->paginate($paglen);
+            }
     	} else {
     		$result = Blog::latest('published_at')->orderBy('id', 'desc')->paginate($paglen);
     	}
@@ -119,8 +124,8 @@ class Blog extends Model
      * Admin page results are never cached.
      */
     public static function blogLinks(){
-    	if(Blog::isUserAdmin()) {
-	    	$result = Cache::remember('blog_archives', 120, function(){
+    	if(!Blog::isUserAdmin() && config('blog.cache')) {
+	    	$result = Cache::remember('blog:blog_archives', 120, function(){
 	    		return Blog::getBlogArchives();
 	    	});
     	} else {
@@ -134,7 +139,7 @@ class Blog extends Model
      * Actully does the query to get the archives list
      * @return array
      */
-    private static function getBlogArchives(){
+    public static function getBlogArchives(){
         $links = DB::table('blogs')
             ->select(DB::raw('YEAR(published_at) year, MONTH(published_at) month, MONTHNAME(published_at) month_name, title, id, slug'))
             ->where('published_at', '<=', Carbon::now())
@@ -170,8 +175,12 @@ class Blog extends Model
      * @return blog array object
      */
 	public static function latestPosts(){
-		// check if the list is in the cache
-		$latestPosts = Cache::get('blog:latestposts');
+	    if(config('blog.cache')) {
+            // check if the list is in the cache
+            $latestPosts = Cache::get('blog:latestposts');
+        } else {
+	        $latestPosts = null;
+        }
 
 		// if so decode it
 		if($latestPosts) {
@@ -180,10 +189,11 @@ class Blog extends Model
 			// else get the list from the DB
 			$blogs = Blog::published()->orderBy('published_at', 'desc')->orderBy('id', 'desc')->limit(10)->get()->toArray();
 			$encoded = json_encode($blogs);
-			
-			// put the list into cache
-			Cache::put('blog:latestposts', $encoded, 1440);
-			
+
+			// if caching is on put it in the cache
+			if(config('blog.cache')) {
+                Cache::put('blog:latestposts', $encoded, 1440);
+            }
 			// encode and then decode it so the dates aren't objects
 			$blogs = json_decode($encoded);
 		}
