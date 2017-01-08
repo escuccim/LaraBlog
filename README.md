@@ -38,13 +38,6 @@ And add to autoload:psr-4
 "Escuccim\\LaraBlog\\": "vendor/escuccim/larablog/src"
 ```
 
-Once you have installed this, run the migrations which will create the necessary database tables and add a few columns to the users table.
-
-``` bash
-php artisan migrate
-``` 
-**Seed the DB (if desired).**
-
 Next register the components:
 
 In config/app.php add the following to the providers array:
@@ -66,6 +59,13 @@ Registered the middleware in app\Http\Kernel.php to the routeMiddleware array:
 ```
 'admin' => \Escuccim\LaraBlog\Middleware\AdminMiddleware::class,
 ```
+
+Once you have installed this, run the migrations which will create the necessary database tables and add a few columns to the users table.
+
+``` bash
+php artisan migrate
+``` 
+**Seed the DB (if desired).**
 
 To load the CSS and JS files this package needs for the editor you need to add the following to your layouts/app.blade.php file in the header section:
 ```
