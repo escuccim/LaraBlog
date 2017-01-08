@@ -1,6 +1,6 @@
 # escuccim
 
-[![Latest Version on Packagist][ico-version]][https://packagist.org/packages/escuccim/larablog]
+[![Latest Version on Packagist][ico-version]][link]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
