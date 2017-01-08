@@ -32,12 +32,12 @@ class blogServiceProvider extends ServiceProvider
         // load our migrations
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
-        // use this if your package needs a config file
+        // publish config if necessary
          $this->publishes([
                  __DIR__.'/config/config.php' => config_path('blog.php'),
          ]);
 
-        // use the vendor configuration file as fallback
+        // use the default configuration file as fallback
          $this->mergeConfigFrom(
              __DIR__.'/config/config.php', 'blog'
          );
@@ -64,10 +64,10 @@ class blogServiceProvider extends ServiceProvider
     {
         $this->registerClass();
 
-        // use this if your package has a config file
-        // config([
-        //         'config/skeleton.php',
-        // ]);
+        // specify the config file
+         config([
+                 'config/blog.php',
+         ]);
     }
     private function registerClass()
     {
