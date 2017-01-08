@@ -43,6 +43,8 @@ Once you have installed this, run the migrations which will create the necessary
 ``` bash
 php artisan migrate
 ``` 
+**Seed the DB (if desired).**
+
 Next register the components:
 
 In config/app.php add the following to the providers array:
@@ -65,9 +67,14 @@ Registered the middleware in app\Http\Kernel.php to the routeMiddleware array:
 'admin' => \Escuccim\LaraBlog\Middleware\AdminMiddleware::class,
 ```
 
-**Add header and footer to layout** 
+To load the CSS and JS files this package needs for the editor you need to add the following to your layouts/app.blade.php file in the header section:
+```
+@yield('header)
+```
 
-Seed the DB (if desired).
+Also note that if you use my views they make use of the Bootstrap CSS files which come out-of-the-box with Laravel.
+
+
 
 Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to have images you need to add functionality for this yourself.
 
