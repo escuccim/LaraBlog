@@ -65,7 +65,7 @@ Once you have installed this, run the migrations which will create the necessary
 ``` bash
 php artisan migrate
 ``` 
-**Seed the DB (if desired).**
+The migrations will automatically seed the DB with a default user: admin@example.com with password: password. It will also add a blog article and a label called test.
 
 To load the CSS and JS files this package needs for the editor you need to add the following to your layouts/app.blade.php file in the header section:
 ```
@@ -74,13 +74,13 @@ To load the CSS and JS files this package needs for the editor you need to add t
 
 Also note that if you use my views they make use of the Bootstrap CSS files which come out-of-the-box with Laravel.
 
-**caching**
+Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to upload images you need to add functionality for this yourself.
 
-Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to have images you need to add functionality for this yourself.
+Also note that this package uses caching to cache a the blog archives menu and the main blog page if the user is NOT logged in as an admin. If the user is an admin it always pulls those from the DB. I personally use Redis for my cache, but the package uses the Cache facade so will work with whatever cache you specify in your .env file. I will add a config option to turn the caching on and off shortly.
 
 ## Usage
 
-This package includes it's own Routes, Models, Controllers, and Views so should work out of the box. To use it just point the browser to /blog.
+This package includes it's own Routes, Models, Controllers, and Views so should work out of the box. To use it just point the browser to /blog. My views extend layouts/app.blade.php and require that you add a line to that file as specified above. They also use Bootstrap CSS for layout and the default JS files that come with Laravel.
 
 If you prefer to write or format your own views I have provided the following static methods on the BlogClass.
 ``` php
