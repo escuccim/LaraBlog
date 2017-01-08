@@ -2,7 +2,7 @@
 <h4>Comments</h4>
 @if(Auth::guest())
 	<p><a href="/login">Login</a> or <a href="/register">Register</a> to comment.
-	{{--  --}}<p><div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true" data-width="200"></div><br />
+	<p><div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true" data-width="200"></div><br />
 @else
 	<div class="panel panel-default">
 		<div class="panel-heading">

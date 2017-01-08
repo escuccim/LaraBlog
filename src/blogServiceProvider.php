@@ -62,14 +62,14 @@ class blogServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerSkeleton();
+        $this->registerClass();
 
         // use this if your package has a config file
         // config([
         //         'config/skeleton.php',
         // ]);
     }
-    private function registerSkeleton()
+    private function registerClass()
     {
         $this->app->bind('escuccim',function($app){
             return new BlogClass($app);

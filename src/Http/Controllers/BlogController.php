@@ -14,16 +14,25 @@ use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
 {
+    /**
+     * Specify the middleware to prevent unauthorized users from accessing blog admin functions.
+     */
 	public function __construct(){
  		$this->middleware('admin')->except(['index', 'show', 'tags']);
 	}
-	
+
+    /**
+     * Main page displays list of blogs.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(){
     	// get blogs from DB or cache. If user is admin get from DB, else cache them for an hour    		
 		$blogs = Blog::getAll($this->isUserAdmin());
 
     	// get links for archive
     	$links = Blog::blogLinks();
+
+    	// set page title
     	$title = 'Blog';
 
 		return view('escuccim::blog/blog', compact('blogs', 'links', 'title'));
@@ -47,6 +56,8 @@ class BlogController extends Controller
 				
 		$links = Blog::blogLinks();
 		$comments = $blog->comments;
+
+		// set the page title
 		$title = $blog->title;
 		
 		return view('escuccim::blog.show', compact('blog', 'links', 'comments', 'title'));
@@ -76,7 +87,7 @@ class BlogController extends Controller
 	public function store(BlogRequest $request){		
  		$blog = $this->createBlog($request);
 		
- 		// update the latest posts list in redis
+ 		// update the latest posts list in cache
  		$this->updateLatestPosts();
  		
  		flash()->success('Your blog has been created');
@@ -92,7 +103,7 @@ class BlogController extends Controller
 	public function edit($id){
 		$blog = Blog::findOrFail($id);
 		
-		// tags = allow tags; tagArray = tags that apply to this blog, to populate select
+		// tags = all tags; tagArray = tags that apply to this blog, to populate select
 		$tags = Tag::pluck('name', 'id');
 		$tagArray = $blog->tags()->pluck('id')->toArray();
 		
@@ -101,7 +112,6 @@ class BlogController extends Controller
 	
 	/**
 	 * Update a blog in the DB
-	 * 
 	 * @param Blog $id
 	 * @param BlogRequest $request
 	 * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
@@ -120,7 +130,8 @@ class BlogController extends Controller
 		// sync the tags
 		if($request->input('tags'))
 			$this->syncTags($blog, $request->input('tags'));
-	
+
+		// update the cache
 		$this->updateLatestPosts();	
 			
 		flash()->success('Your blog post has been edited!');	
@@ -145,8 +156,9 @@ class BlogController extends Controller
 			$blogs = $tag->blogs()->latest('published_at')->published()->paginate(5);
 				 
 		$links = Blog::blogLinks();
+		$title = 'Articles tagged ' . $name;
 		
-		return view('escuccim::blog/blog', compact('blogs', 'links', 'name'));
+		return view('escuccim::blog/blog', compact('blogs', 'links', 'name', 'title'));
 	}
 
     /**
@@ -158,9 +170,7 @@ class BlogController extends Controller
         $input['body'] = $request->input('body');
 
         $slug = $request->input('slug');
-
         BlogComment::create($input);
-
         flash()->success('Your comment has been posted.');
 
         return redirect('/blog/' . $slug);
@@ -173,16 +183,13 @@ class BlogController extends Controller
 	public function destroy($id){
 		// delete the blog from the DB
 		Blog::destroy($id);
-		
-		// update the redis list
+        // update the cache list
 		$this->updateLatestPosts();
-		
 		return redirect('blog');
 	}
 	
 	/** 
 	 * recursively check slug to make sure it is unique. If not keep appending '-1' to it until it is.
-	 * Would be better to change -1 to -2, etc. but not that important
 	 **/
 	private function checkSlug($slug){
 		if(Blog::where('slug', $slug)->exists()){
@@ -196,7 +203,7 @@ class BlogController extends Controller
 	 * I don't remember why I separated this from the store function, since it's not called from anywhere else
 	 **/
 	private function createBlog(Request $request){
-	    // since we don't want to have to update the user model, we need to add the user_id from session to the data from the request
+	    // get user from session so we don't have to change User model
 	    $user = Auth::user();
         $data  = $request->all();
         $data['user_id'] = $user->id;
@@ -223,7 +230,7 @@ class BlogController extends Controller
 	
 	/**
 	 * take in tags from drop-down form, check if they exist in DB. if not add them
-	 * then update DB with array of tags - all of which are now in DB
+	 * then update DB with tags for this article
 	 */
 	private function syncTags(Blog $blog, array $tags) {
 		$tagArray = [];
@@ -243,8 +250,7 @@ class BlogController extends Controller
 	}
 	
 	/**
-	 * update the list in redis that stores the latest posts. I tried to do this using a Redis list, but it's easier
-	 * to just store the entire query in Redis
+	 * update the list in cache that stores the latest posts.
 	 */
 	private function updateLatestPosts(){
 		$blogs = Blog::published()->orderBy('published_at', 'desc')->orderBy('id', 'desc')->limit(10)->get()->toArray();

@@ -10,7 +10,10 @@ class Tag extends Model
 			'name',
 	];
 
-	/* Get the articles associated with this tag */
+    /**
+     * Each tag can belong to many blogs
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
 	public function blogs(){
 		return $this->belongsToMany('Escuccim\LaraBlog\Models\Blog');
 	}

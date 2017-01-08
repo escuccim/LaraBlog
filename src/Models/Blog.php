@@ -20,7 +20,12 @@ class Blog extends Model
     ];
     
     protected $dates = ['published_at'];
-    
+
+    /**
+     * Gets all blog posts and returns paginator.
+     * @param bool $admin
+     * @return mixed
+     */
     public static function getAll($admin = false){
     	if(!$admin){
 	    	$result = Cache::remember('blog_posts', 120, function(){
@@ -31,17 +36,29 @@ class Blog extends Model
     	}
     	return $result;
     }
-    
+
+    /**
+     * Returns only published articles
+     * @param $query
+     */
     public function scopePublished($query){
     	$query->where('published_at', '<=', Carbon::now())
     		->where('published', 1);
     }
-    
+
+    /**
+     * Returns only unpublished blogs -this is not used anymore
+     * @param $query
+     */
     public function scopeUnpublished($query){
     	$query->where('published_at', '>=', Carbon::now())
     		->orWhere('published', 0);
     }
-    
+
+    /**
+     * Sets published_at to carbon instance
+     * @param $date
+     */
     public function setPublishedAtAttribute($date){
     	$this->attributes['published_at'] = Carbon::parse($date);
     }
@@ -49,25 +66,43 @@ class Blog extends Model
     public function getPublishedAtAttribute($date){
     	return new Carbon($date);
     }
-    
-    /* An article belongs to a user */
+
+    /**
+     * Assigns a blog to the user who wrote it.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user(){
     	return $this->belongsTo('App\User');
     }
-    
+
+    /**
+     * Assigns many comments to a blog
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function comments(){
     	return $this->hasMany('Escuccim\LaraBlog\Models\BlogComment');
     }
-    
-    /* Get the tags for a given article */
+
+    /**
+     * Gets the tags that belong to the article
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tags() {
     	return $this->belongsToMany('Escuccim\LaraBlog\Models\Tag');
     }
-    
+
+    /**
+     * Gets the IDs for the tags for this article for the select list
+     * @return mixed
+     */
     public function getTagListAttribute(){
     	return $this->tags->pluck('id');
     }
-    
+
+    /**
+     * sets the color of the panel in the blog index according to the status of the article
+     * @return string
+     */
     public function getBlogStatus(){
     	if($this->published_at > Carbon::now()){
     		return 'panel-danger';
@@ -76,45 +111,6 @@ class Blog extends Model
     	} else {
     		return 'panel-default';
     	}
-    }
-    
-    /**
-     * This is the original code for blogLinks which does the query and returns the array. I separated it into another function 
-     * so that blogLinks can check for this data in the cache and then call this function if necessary.
-     * @return array
-     */
-    private static function getBlogArchives(){
-    	$links = DB::table('blogs')
-	    	->select(DB::raw('YEAR(published_at) year, MONTH(published_at) month, MONTHNAME(published_at) month_name, title, id, slug'))
-	    	// 		Commented out because I don't need counts
-	    	->where('published_at', '<=', Carbon::now())
-	    	->where('published', 1)
-	    	// 			->groupBy('year')
-	    	// 			->groupBy('month')
-	    	->orderBy('year', 'desc')
-	    	->orderBy('month', 'desc')
-	    	->get();
-    	 
-    	$currentYear = 0;
-    	$currentMonth = 0;
-    	
-    	if(count($links)){
-	    	foreach($links as $link){
-	    		if($currentYear != $link->year){
-	    			$archiveArray[$link->year] = [];
-	    			$currentYear = $link->year;
-	    		}
-	    		if($currentMonth != $link->month){
-	    			$archiveArray[$link->year][$link->month_name] = [];
-	    			$currentMonth = $link->month;
-	    		}
-	    		$archiveArray[$link->year][$link->month_name][] = ['slug' => $link->slug, 'title' => $link->title];
-	    	}
-    	} else {
-    		$archiveArray = [];
-    	}
-    	
-    	return $archiveArray;
     }
     
     /**
@@ -132,17 +128,51 @@ class Blog extends Model
     	
     	return $result;
     }
-    
+
+    /**
+     * Actully does the query to get the archives list
+     * @return array
+     */
+    private static function getBlogArchives(){
+        $links = DB::table('blogs')
+            ->select(DB::raw('YEAR(published_at) year, MONTH(published_at) month, MONTHNAME(published_at) month_name, title, id, slug'))
+            ->where('published_at', '<=', Carbon::now())
+            ->where('published', 1)
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get();
+
+        $currentYear = 0;
+        $currentMonth = 0;
+
+        if(count($links)){
+            foreach($links as $link){
+                if($currentYear != $link->year){
+                    $archiveArray[$link->year] = [];
+                    $currentYear = $link->year;
+                }
+                if($currentMonth != $link->month){
+                    $archiveArray[$link->year][$link->month_name] = [];
+                    $currentMonth = $link->month;
+                }
+                $archiveArray[$link->year][$link->month_name][] = ['slug' => $link->slug, 'title' => $link->title];
+            }
+        } else {
+            $archiveArray = [];
+        }
+
+        return $archiveArray;
+    }
+
     /**
      * Get latest 5 posts to display on home page.
      * @return blog array object
      */
 	public static function latestPosts(){
-		// check if the list is in redis
-// 		$latestPosts = Redis::get('blog:latestposts');
+		// check if the list is in the cache
 		$latestPosts = Cache::get('blog:latestposts');
-		
-		// if so we need to loop through and convert the dates to strings instead of these stupid objects
+
+		// if so decode it
 		if($latestPosts) {
 			$blogs = json_decode($latestPosts);
 		} else {
@@ -150,17 +180,20 @@ class Blog extends Model
 			$blogs = Blog::published()->orderBy('published_at', 'desc')->orderBy('id', 'desc')->limit(10)->get()->toArray();
 			$encoded = json_encode($blogs);
 			
-			// put the list into redis
-// 			Redis::set('blog:latestposts', $encoded);
+			// put the list into cache
 			Cache::put('blog:latestposts', $encoded, 1440);
 			
-			// encode and then decode it so we have the same data format no matter whether the list exists or not
+			// encode and then decode it so the dates aren't objects
 			$blogs = json_decode($encoded);
 		}
 		
 		return $blogs;
 	}
 
+    /**
+     * Check if the user is an admin, used in the views to display add, edit and delete buttons
+     * @return bool
+     */
 	public static function isUserAdmin(){
         if(Auth::guest())
             return false;

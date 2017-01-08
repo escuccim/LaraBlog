@@ -7,11 +7,11 @@ use Escuccim\LaraBlog\Models\Blog;
 class BlogClass
 {
     /**
-     * Create a new Skeleton Instance
+     * Create a new Instance
      */
     public function __construct()
     {
-        // constructor body
+        //
     }
 
     public static function getArticle($slug){

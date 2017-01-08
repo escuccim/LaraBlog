@@ -2,7 +2,6 @@
 
 namespace Escuccim\LaraBlog\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Escuccim\LaraBlog\Models\Blog;
 use App\Http\Controllers\Controller;
 
