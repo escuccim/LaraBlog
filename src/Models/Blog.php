@@ -27,12 +27,13 @@ class Blog extends Model
      * @return mixed
      */
     public static function getAll($admin = false){
+        $paglen = config('blog.paginator_length', 5);
     	if(!$admin){
 	    	$result = Cache::remember('blog_posts', 120, function(){
-	    		return Blog::latest('published_at')->orderBy('id', 'desc')->published()->paginate(5);
+	    		return Blog::latest('published_at')->orderBy('id', 'desc')->published()->paginate($paglen);
 	    	});
     	} else {
-    		$result = Blog::latest('published_at')->orderBy('id', 'desc')->paginate(10);
+    		$result = Blog::latest('published_at')->orderBy('id', 'desc')->paginate($paglen);
     	}
     	return $result;
     }
