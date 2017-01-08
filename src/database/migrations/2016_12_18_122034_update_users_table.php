@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class UpdateUsersTable extends Migration
 {
@@ -37,7 +38,7 @@ class UpdateUsersTable extends Migration
     	});
     }
 
-    private function seedDatabase() {
+    private function seedDatabase()
     {
         DB::table('users')->insert([
             'name' => 'admin',
