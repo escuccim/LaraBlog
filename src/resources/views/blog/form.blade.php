@@ -47,21 +47,19 @@
 </div>
 </div>
 
-@section('footer')
-	<script>
-		new Vue({
-			el: '#app',
-			data: {
-				title: '',
-				slug: '',
-				body: '',
-				publish_at: '',
-			},
-		});
-		$('#tags').select2({
-			placeholder: 'Choose a tag:',
-			allowClear: true,
-			tags: true,
-		});
-	</script>
-@endsection
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			title: '',
+			slug: '',
+			body: '',
+			publish_at: '',
+		},
+	});
+	$('#tags').select2({
+		placeholder: 'Choose a tag:',
+		allowClear: true,
+		tags: true,
+	});
+</script>
