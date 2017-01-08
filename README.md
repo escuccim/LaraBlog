@@ -71,12 +71,16 @@ To load the CSS and JS files this package needs for the editor you need to add t
 ```
 @yield('header)
 ```
+To publish the config file type:
+``` bash
+php artisan vendor:publish
+``` 
+This will put the config file into config/blog.php where it can be edited. The config file allows you to change the Blog title and description in the feed, to set the number of results per page returned by the paginator, and to disable caching if you so desire. 
 
 Also note that if you use my views they make use of the Bootstrap CSS files which come out-of-the-box with Laravel.
 
 Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to upload images you need to add functionality for this yourself.
 
-Also note that this package uses caching to cache a the blog archives menu and the main blog page if the user is NOT logged in as an admin. If the user is an admin it always pulls those from the DB. I personally use Redis for my cache, but the package uses the Cache facade so will work with whatever cache you specify in your .env file. I will add a config option to turn the caching on and off shortly.
 
 ## Usage
 
