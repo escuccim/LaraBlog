@@ -91,7 +91,7 @@ BlogClass::getArchives();
 BlogClass::getComments('slug');
 ```
 
-Method getAllArticles takes an optional parameter indicating whether the user is an administrator or not. If not it only returns articles which are published, otherwise it returns all articles.
+Method getAllArticles takes an optional parameter indicating whether the user is an administrator or not. If not it only returns articles which are published, otherwise it returns all articles. This returns a Laravel paginator.
 
 Method getArticle takes in the slug for the article desired and returns all the details, regardless of whether the article is published or not.
 
