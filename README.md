@@ -71,11 +71,12 @@ To load the CSS and JS files this package needs for the editor you need to add t
 ```
 @yield('header)
 ```
-To publish the config file type:
+
+You can choose to publish the config file type:
 ``` bash
 php artisan vendor:publish
 ``` 
-This will put the config file into config/blog.php where it can be edited. The config file allows you to change the Blog title and description in the feed, to set the number of results per page returned by the paginator, and to disable caching if you so desire. 
+This will put the config file into config/blog.php where it can be edited. If you do not do this the default values will be used. The config file allows you to change the Blog title and description in the feed, to set the number of results per page returned by the paginator, and to disable caching if you so desire. 
 
 Also note that if you use my views they make use of the Bootstrap CSS files which come out-of-the-box with Laravel.
 

@@ -1,7 +1,7 @@
 {
     "name": "escuccim/larablog",
     "type": "library",
-    "description": ":Laravel blog",
+    "description": "A blog for Laravel",
     "keywords": [
         "escuccim",
         "blog"
@@ -11,9 +11,9 @@
     "license": "MIT",
     "authors": [
         {
-            "name": ":Eric Scuccimarra",
-            "email": ":skooch@gmail.com",
-            "homepage": ":http://ericscuccimarra.com",
+            "name": :Eric Scuccimarra",
+            "email": "skooch@gmail.com",
+            "homepage": "http://ericscuccimarra.com",
             "role": "Developer"
         }
     ],
