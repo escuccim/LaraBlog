@@ -11,8 +11,8 @@ class FeedController extends Controller
 		$blogs = Blog::latest('published_at')->orderBy('id', 'desc')->published()->take(10)->get();
 		
 		$feed = \App::make('feed');
-		$feed->title = 'Blog';
-		$feed->description = 'Blog';
+		$feed->title = config('blog.blog_feed_title');
+		$feed->description = config('blog.blog_feed_description');
 		// $feed->logo = asset('img/logo.png'); //optional
 		$feed->link = url('feed');
 		$feed->setDateFormat('carbon'); // 'datetime', 'timestamp' or 'carbon'
@@ -24,7 +24,7 @@ class FeedController extends Controller
 		foreach ($blogs as $blog)
 		{
 			// set item's title, author, url, pubdate, description and content
-			$feed->add($blog->title, 'Author', url('blog/' . $blog->slug), $blog->published_at, $blog->body, $blog->body);
+			$feed->add($blog->title, $blog->user->name, url('blog/' . $blog->slug), $blog->published_at, $blog->body, $blog->body);
 		}
 		
 		return $feed->render('rss'); // or atom

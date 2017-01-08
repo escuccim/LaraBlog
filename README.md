@@ -4,7 +4,7 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-qualityB
+[![Quality Score][ico-code-quality]][link-code-quality]
 
 This is a simple little Blog for Laravel that I wrote for myself that I am trying to make into a package. It is still under development, but seems to be working so far.
 

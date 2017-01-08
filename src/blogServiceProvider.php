@@ -33,14 +33,14 @@ class blogServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
         // use this if your package needs a config file
-        // $this->publishes([
-        //         __DIR__.'/config/config.php' => config_path('skeleton.php'),
-        // ]);
+         $this->publishes([
+                 __DIR__.'/config/config.php' => config_path('blog.php'),
+         ]);
 
         // use the vendor configuration file as fallback
-        // $this->mergeConfigFrom(
-        //     __DIR__.'/config/config.php', 'skeleton'
-        // );
+         $this->mergeConfigFrom(
+             __DIR__.'/config/config.php', 'blog'
+         );
     }
     /**
      * Define the routes for the application.

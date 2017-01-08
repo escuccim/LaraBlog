@@ -1,7 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: eric
- * Date: 1/5/2017
- * Time: 4:37 PM
- */
+
+return [
+    'paginator_length'  => 5,
+    'blog_feed_title'   => 'Blog Feed Title',
+    'blog_feed_description' => 'Blog Feed Description',
+    'cache' => true,
+];
