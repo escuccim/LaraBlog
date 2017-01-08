@@ -74,7 +74,7 @@ To load the CSS and JS files this package needs for the editor you need to add t
 
 Also note that if you use my views they make use of the Bootstrap CSS files which come out-of-the-box with Laravel.
 
-
+**caching**
 
 Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to have images you need to add functionality for this yourself.
 
