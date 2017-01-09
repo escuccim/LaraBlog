@@ -1,6 +1,7 @@
 language: php
 
 php:
+  - 7.0
   - 5.3
   - 5.4
   - 5.5
@@ -10,5 +11,7 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
+  - php artisan make:auth
+  - php artisan migrate
 
 script: phpunit
