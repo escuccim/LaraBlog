@@ -6,7 +6,7 @@
         "escuccim",
         "blog"
     ],
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "homepage": "https://github.com/escuccim/larablog",
     "license": "MIT",
     "authors": [
