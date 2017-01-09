@@ -68,7 +68,12 @@ Note that the comments functionality of the blog will display an image reference
 
 This package includes it's own Routes, Models, Controllers, and Views so should work out of the box. To use it just point the browser to /blog. My views extend layouts/app.blade.php and require that you add a line to that file as specified above. They also use Bootstrap CSS for layout and the default JS files that come with Laravel.
 
-If you prefer to write or format your own views I have provided the following static methods on the BlogClass.
+If you want to edit my views you can publish them with:
+``` bash
+php artisan vendor:publish
+```
+
+If you prefer to write your own views I have provided the following static methods on the BlogClass.
 ``` php
 $blog = new escuccim\LaraBlog\BlogClass();
 BlogClass::getAllArticles([isUserAdmin]); 
