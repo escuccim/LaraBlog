@@ -41,19 +41,23 @@ Registered the middleware in app\Http\Kernel.php to the routeMiddleware array:
 'admin' => \Escuccim\LaraBlog\Middleware\AdminMiddleware::class,
 ```
 
-Once you have installed this, run the migrations which will create the necessary database tables and add a few columns to the users table.
+Once you have installed this, run the migrations which will create the necessary database tables and add a few columns to the users table. 
 
 ``` bash
 php artisan migrate
 ``` 
-The migrations will automatically seed the DB with a default user: admin@example.com with password: password. It will also add a blog article and a label called test.
+The migrations will automatically seed the DB with a default user: admin@example.com with password: password. It will also add a test blog article and a label called test.
+
+The migrations also add two fields to the users table:
+ * image contains a URI for an image which is displayed next to comments left by users
+ * type specifies whether the user is an admin or not, 1 is admin, 0 is normal user
 
 To load the CSS and JS files this package needs for the editor you need to add the following to your layouts/app.blade.php file in the header section:
 ```
 @yield('header')
 ```
 
-You can choose to publish the config file type:
+You can choose to publish the config file and the views with:
 ``` bash
 php artisan vendor:publish
 ``` 
@@ -68,7 +72,7 @@ Note that the comments functionality of the blog will display an image reference
 
 This package includes it's own Routes, Models, Controllers, and Views so should work out of the box. To use it just point the browser to /blog. My views extend layouts/app.blade.php and require that you add a line to that file as specified above. They also use Bootstrap CSS for layout and the default JS files that come with Laravel.
 
-If you want to edit my views you can publish them with:
+If you want to edit my views you can publish them to resources/views/vendor/escuccim with:
 ``` bash
 php artisan vendor:publish
 ```
