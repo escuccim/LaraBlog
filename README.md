@@ -14,28 +14,9 @@ This has not yet been registered with Packagist, so is not available through Com
 
 This package uses Laravel's Auth, so you must have installed that package prior to installing this.
 
-Via Composer - NOT YET WORKING!
+Via Composer
 ``` bash
 $ composer require escuccim/blog
-```
-
-Add the following to composer.json
-```
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/escuccim/LaraBlog"
-    }
-],
-```
-Add to require:
-```
-"escuccim/larablog": "dev-master"
-```
-
-And add to autoload:psr-4
-```
-"Escuccim\\LaraBlog\\": "vendor/escuccim/larablog/src"
 ```
 
 Next register the components:
