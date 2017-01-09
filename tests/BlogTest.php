@@ -3,13 +3,12 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Redis;
 use Escuccim\LaraBlog\Models\Blog;
 use Escuccim\LaraBlog\Models\Tag;
 
-class BlogTest extends TestCase
+class BlogTest extends PHPUnit_Framework_TestCase
 {
-//	use DatabaseTransactions;
+	use DatabaseTransactions;
 
 	/**
 	 * Test blog pages
@@ -200,7 +199,7 @@ class BlogTest extends TestCase
 		->dontSee('Edit Blog')
 		->dontSee('Delete Blog');
 
-//		$user->destroy($user->id);
+		$user->destroy($user->id);
 			
         // flush the cache? maybe not necessary anymore?
 	}
