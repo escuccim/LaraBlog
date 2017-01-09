@@ -35,6 +35,7 @@ class blogServiceProvider extends ServiceProvider
         // publish config if necessary
          $this->publishes([
                  __DIR__.'/config/config.php' => config_path('blog.php'),
+                 __DIR__ . '/resources/views' => base_path('resources/views/vendor/escuccim')
          ]);
 
         // use the default configuration file as fallback
