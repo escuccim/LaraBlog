@@ -4,10 +4,12 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Redis;
+use Escuccim\LaraBlog\Models\Blog;
+use Escuccim\LaraBlog\Models\Tag;
 
 class BlogTest extends TestCase
 {
-	use DatabaseTransactions;
+//	use DatabaseTransactions;
 
 	/**
 	 * Test blog pages
@@ -21,7 +23,7 @@ class BlogTest extends TestCase
 
 	public function testBlogPagesAppear (){
 		// get a random post from the DB
-		$blog = \App\Blog::getAll()->first();
+		$blog = Blog::getAll()->first();
 			
 		// Check if pages are OK with no user
 		$this->visit('/blog')
@@ -83,7 +85,7 @@ class BlogTest extends TestCase
 		$user->save();
 			
 		// get id of tag for test
-		$test = \App\Tag::where('name', 'test')->first();
+		$test = Tag::where('name', 'test')->first();
 
 		// make a new blog, check that it is made, edit it, check that it is edited, change the date
 		$this->actingAs($user)
@@ -106,11 +108,6 @@ class BlogTest extends TestCase
 		->assertResponseOk()
 		->see('PHP Unit Test')
 		->see('Edit Blog');
-
-		// make sure the new blog appears on the home page
-		$this->actingAs($user)
-		->visit('/home')
-		->see('PHP Unit Test');
 
 		// make sure it appears in the RSS feed
 		$this->visit('/feed')
@@ -203,17 +200,16 @@ class BlogTest extends TestCase
 		->dontSee('Edit Blog')
 		->dontSee('Delete Blog');
 
-		$user->destroy($user->id);
+//		$user->destroy($user->id);
 			
-		// flush the redis list
-		Redis::flushall();
+        // flush the cache? maybe not necessary anymore?
 	}
 
 	public function testComments(){
 		// create a user
 		$user = factory(App\User::class)->create();
 		// get a random post from the DB
-		$blog = \App\Blog::getAll()->first();
+		$blog = Blog::getAll()->first();
 			
 		// go to its page and leave a comment
 		$this->actingAs($user)

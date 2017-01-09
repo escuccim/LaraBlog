@@ -18,7 +18,7 @@ class BlogController extends Controller
      * Specify the middleware to prevent unauthorized users from accessing blog admin functions.
      */
 	public function __construct(){
- 		$this->middleware('admin')->except(['index', 'show', 'tags']);
+ 		$this->middleware('admin')->except(['index', 'show', 'tags', 'comment']);
 	}
 
     /**

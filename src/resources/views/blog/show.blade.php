@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+	@include('flash::message')
 	<div class="row">
 		<div class="col-md-10">
 			<article>
