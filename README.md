@@ -88,7 +88,7 @@ Method getArticle takes in the slug for the article desired and returns all the 
 
 Method getComments also takes in the slug and returns all comments, regardless of whether the article is published or not.
 
-Method getArchives returns the data used to construct the archive menu as a nested associative array. Note that this data is cached so will not update to reflect changes immediately.
+Method getArchives returns the data used to construct the archive menu as a nested associative array. 
 
 This package also includes an RSS feed which uses the Roumen\Feed package to generate the feed. This is available at /feed.
 
