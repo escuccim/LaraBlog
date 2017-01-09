@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Escuccim\LaraBlog\Models\Blog;
 use Escuccim\LaraBlog\Models\Tag;
 
-class BlogTest extends PHPUnit_Framework_TestCase
+class BlogTest extends TestCase
 {
 	use DatabaseTransactions;
 
@@ -220,4 +220,29 @@ class BlogTest extends PHPUnit_Framework_TestCase
 		->see('Your comment has been posted')
 		->see('Test comment');
 	}
+}
+
+
+abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
+{
+    /**
+     * The base URL to use while testing the application.
+     *
+     * @var string
+     */
+    protected $baseUrl = 'http://localhost';
+
+    /**
+     * Creates the application.
+     *
+     * @return \Illuminate\Foundation\Application
+     */
+    public function createApplication()
+    {
+        $app = require __DIR__.'/../bootstrap/app.php';
+
+        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+        return $app;
+    }
 }
