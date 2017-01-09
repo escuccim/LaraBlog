@@ -6,9 +6,7 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 
-This is a simple little Blog for Laravel that I wrote for myself that I am trying to make into a package. It is still under development, but seems to be working so far.
-
-This has not yet been registered with Packagist, so is not available through Composer.
+This is a simple little Blog for Laravel that I wrote for myself that I am trying to make into a package. It is still under development, but is working so far.
 
 ## Install
 
