@@ -69,7 +69,7 @@ The migrations will automatically seed the DB with a default user: admin@example
 
 To load the CSS and JS files this package needs for the editor you need to add the following to your layouts/app.blade.php file in the header section:
 ```
-@yield('header)
+@yield('header')
 ```
 
 You can choose to publish the config file type:
