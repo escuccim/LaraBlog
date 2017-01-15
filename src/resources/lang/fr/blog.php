@@ -9,7 +9,7 @@ return [
 	'register' => 'Inscrivez-vous',
 	'leaveacomment' => 'Enregistrer un commentaire',
 	'noofcomments' => 'commentaires',
-	'nocomments' => 'Aucun commentaires',
+	'nocomments' => 'Aucun commentaire',
 	'by' => 'Par',
 	'entercomment' => 'Saissisez votre commentaire...',
 	'postcomment' => 'Publier',
