@@ -2,21 +2,12 @@
 
 All Notable changes to `larablog` will be documented in this file.
 
-Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
-
-## NEXT - YYYY-MM-DD
+## [Unreleased] 
 
 ### Added
-- Nothing
+- Translations for English and French
 
-### Deprecated
-- Nothing
+### Changes
+- Views to use translations instead of hardcoded data
+- Dates use strftime() to translate dates instead of date()
 
-### Fixed
-- Nothing
-
-### Removed
-- Nothing
-
-### Security
-- Nothing
