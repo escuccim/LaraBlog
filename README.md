@@ -83,16 +83,9 @@ BlogClass::getArticle('slug');
 BlogClass::getArchives();
 BlogClass::getComments('slug');
 ```
-
-Method getAllArticles takes an optional parameter indicating whether the user is an administrator or not. If not it only returns articles which are published, otherwise it returns all articles. This returns a Laravel paginator.
-
-Method getArticle takes in the slug for the article desired and returns all the details, regardless of whether the article is published or not.
-
-Method getComments also takes in the slug and returns all comments, regardless of whether the article is published or not.
-
-Method getArchives returns the data used to construct the archive menu as a nested associative array. 
-
 This package also includes an RSS feed which uses the Roumen\Feed package to generate the feed. This is available at /feed.
+
+This supports localization and comes with English and French by default. Note that it does not provide a means to set the language dynamically yet and uses the value from your config/app.php file. I use strftime() to localize dates and times, but you will need to setlocale() yourself.
 
 ## Testing
 
