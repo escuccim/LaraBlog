@@ -9,9 +9,9 @@
 				<div class="panel {{ $blog->getBlogStatus() }}">
 					<div class="panel-heading">
 			
-				<i>{{ strftime('%A %d %B %Y', strtotime($blog->published_at)) }} {{ trans('escuccim::blog.at') }} {{ date('H:i', strtotime($blog->updated_at) ) }}</i>
+				<i>{{ strftime('%A %d %B %Y', strtotime($blog->published_at)) }} {{ trans('larablog::blog.at') }} {{ date('H:i', strtotime($blog->updated_at) ) }}</i>
 						<h2>{{ $blog->title }}</h2>
-				{{ trans('escuccim::blog.by') }} {{ $blog->user->name }}
+				{{ trans('larablog::blog.by') }} {{ $blog->user->name }}
 					</div>
 
 					<div class="panel-body">

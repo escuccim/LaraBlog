@@ -1,13 +1,13 @@
 <div id="comment">
-<h4>{{ trans('escuccim::blog.comments') }}</h4>
+<h4>{{ trans('larablog::blog.comments') }}</h4>
 @if(Auth::guest())
-	<p><a href="/login">{{ trans('escuccim::blog.login') }}</a> {{ trans('escuccim::blog.or') }} <a href="/register">{{ trans('escuccim::blog.register') }}</a> {{ trans('escuccim::blog.toleaveacomment') }}.
+	<p><a href="/login">{{ trans('larablog::blog.login') }}</a> {{ trans('larablog::blog.or') }} <a href="/register">{{ trans('larablog::blog.register') }}</a> {{ trans('larablog::blog.toleaveacomment') }}.
 	<p><div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true" data-width="200"></div><br />
 @else
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<a data-toggle="collapse" href="#comment-collapse" id="leave-comment"> 
-				{{ trans('escuccim::blog.leaveacomment') }}
+				{{ trans('larablog::blog.leaveacomment') }}
 			</a>	
 		</div>
 		<div id="comment-collapse" class="panel-collapse collapse">
@@ -16,9 +16,9 @@
 					<input type="hidden" name="blog_id" value="{{ $blog->id }}">
 					<input type="hidden" name="slug" value="{{ $blog->slug }}">
 					<div class="form-group">
-						<textarea required="required" placeholder="{{ trans('escuccim::blog.entercomment') }}" name="body" class="form-control" v-model="comment"></textarea>
+						<textarea required="required" placeholder="{{ trans('larablog::blog.entercomment') }}" name="body" class="form-control" v-model="comment"></textarea>
 					</div>
-					<input type="submit" name="post_comment" class="btn btn-primary" value="{{ trans('escuccim::blog.postcomment') }}" :disabled="!comment">
+					<input type="submit" name="post_comment" class="btn btn-primary" value="{{ trans('larablog::blog.postcomment') }}" :disabled="!comment">
 				{{ Form::close() }}
 			</div>
 		</div>	

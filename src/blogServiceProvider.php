@@ -24,7 +24,7 @@ class blogServiceProvider extends ServiceProvider
         $this->loadViewsFrom(realpath(__DIR__.'/resources/views'), 'escuccim');
 
         // use this if your package has lang files
-        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'escuccim');
+        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'larablog');
 
         // use this if your package has routes
         $this->setupRoutes($this->app->router);
@@ -36,7 +36,7 @@ class blogServiceProvider extends ServiceProvider
          $this->publishes([
                  __DIR__.'/config/config.php' => config_path('blog.php'),
                  __DIR__ . '/resources/views' => base_path('resources/views/vendor/escuccim'),
-                 __DIR__ . '/resources/lang' => base_path('resources/lang/vendor/escuccim')
+                 __DIR__ . '/resources/lang' => base_path('resources/lang/vendor/larablog')
          ]);
 
         // use the default configuration file as fallback

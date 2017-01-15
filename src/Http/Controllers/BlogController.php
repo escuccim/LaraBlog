@@ -19,7 +19,7 @@ class BlogController extends Controller
      */
 	public function __construct(){
  		$this->middleware('admin')->except(['index', 'show', 'tags', 'comment']);
-	}
+    }
 
     /**
      * Main page displays list of blogs.
@@ -34,7 +34,6 @@ class BlogController extends Controller
 
     	// set page title
     	$title = 'Blog';
-
 		return view('escuccim::blog/blog', compact('blogs', 'links', 'title'));
 	}
 	

@@ -15,7 +15,7 @@ return [
 	'postcomment' => 'Publier',
 	'showallposts' => 'Afficher tous les billets.',
 	'showinglabel' => 'Les billets libell&eacute;s:',
-	'at' => 'a',
+	'at' => '&agrave;',
 	'commentposted' => 'Votre commentaire a &eacute;t&eacute; enregistr&eacute;.',
     'labelstitle' => 'Billets libell&eacute;',
 ];

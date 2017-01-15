@@ -11,8 +11,8 @@
 		<div class="col-md-10">
 			@if(Request::is( 'blog/labels*'))
 				<div class="alert alert-warning alert-important text-center">
-				{{ trans('escuccim::blog.showinglabel') }} <strong>{{ $name }}</strong>.
-					<a href="{{ url('/blog')}}">{{ trans('escuccim::blog.showallposts') }}</a>
+				{{ trans('larablog::blog.showinglabel') }} <strong>{{ $name }}</strong>.
+					<a href="{{ url('/blog')}}">{{ trans('larablog::blog.showallposts') }}</a>
 				</div>
 			@endif
 
@@ -30,9 +30,9 @@
 							@include('escuccim::blog.tags')<br>
 							<a href="{{ url('/blog/' . $blog->slug) }}">
 							@if($blog->comments->count())
-						<small>{{ $blog->comments->count() }} {{ trans('escuccim::blog.noofcomments') }}</small>
+						<small>{{ $blog->comments->count() }} {{ trans('larablog::blog.noofcomments') }}</small>
 							@else
-						<small>{{ trans('escuccim::blog.nocomments') }}</small>
+						<small>{{ trans('larablog::blog.nocomments') }}</small>
 							@endif
 							</a>
 						</div>

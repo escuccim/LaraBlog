@@ -1,6 +1,6 @@
 <div class="panel panel-info">
 	<div class="panel-heading">
-		{{ trans('escuccim::blog.archives') }}
+		{{ trans('larablog::blog.archives') }}
 	</div>	
 	
 	<ul class="list-group">
