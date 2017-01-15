@@ -1,0 +1,21 @@
+<?php
+return [
+	'archives' => 'Archives',
+	'labels' => 'Labels',
+	'comments' => 'Comments',
+	'login' => 'Login',
+	'register' => 'Register',
+	'or' => 'or',
+	'toleaveacomment' => 'to leave a comment.',
+	'leaveacomment' => 'Leave a Comment',
+	'noofcomments' => 'comments',
+	'nocomments' => 'No comments',
+	'by' => 'By',
+	'entercomment' => 'Enter your comment here',
+	'postcomment' => 'Post Comment',
+	'showallposts' => 'Show all posts.',
+	'showinglabel' => 'Showing posts with label:',
+	'at' => 'at',
+	'commentposted' => 'Your comment has been posted.',
+    'labelstitle' => 'Articles Tagged',
+];
