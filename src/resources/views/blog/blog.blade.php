@@ -11,8 +11,8 @@
 		<div class="col-md-10">
 			@if(Request::is( 'blog/labels*'))
 				<div class="alert alert-warning alert-important text-center">
-					Showing posts with label: <strong>{{ $name }}</strong>.
-					<a href="{{ url('/blog')}}">Show all posts.</a>
+				{{ trans('escuccim::blog.showinglabel') }} <strong>{{ $name }}</strong>.
+					<a href="{{ url('/blog')}}">{{ trans('escuccim::blog.showallposts') }}</a>
 				</div>
 			@endif
 
@@ -23,16 +23,16 @@
 							<h3>
 								<a href="{{ url('/blog/' . $blog->slug) }}">{{ $blog->title }}</a>
 							</h3>
-							<strong>{{ date('l Y-m-d', strtotime($blog->published_at)) }}	</strong>
+					<strong>{{ strftime('%A %d %B %Y', strtotime($blog->published_at)) }}	</strong>
 						</div>
 						<div class="panel-body">
 							{!! $blog->body !!}
 							@include('escuccim::blog.tags')<br>
 							<a href="{{ url('/blog/' . $blog->slug) }}">
 							@if($blog->comments->count())
-								<small>{{ $blog->comments->count() }} comments</small>
+						<small>{{ $blog->comments->count() }} {{ trans('escuccim::blog.noofcomments') }}</small>
 							@else
-								<small>No comments</small>
+						<small>{{ trans('escuccim::blog.nocomments') }}</small>
 							@endif
 							</a>
 						</div>

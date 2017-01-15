@@ -8,9 +8,10 @@
 			<article>
 				<div class="panel {{ $blog->getBlogStatus() }}">
 					<div class="panel-heading">
-						<i>On {{ date('l Y-m-d', strtotime($blog->published_at)) }}	</i>
+			
+				<i>{{ strftime('%A %d %B %Y', strtotime($blog->published_at)) }} {{ trans('escuccim::blog.at') }} {{ date('H:i', strtotime($blog->updated_at) ) }}</i>
 						<h2>{{ $blog->title }}</h2>
-						By {{ $blog->user->name }}
+				{{ trans('escuccim::blog.by') }} {{ $blog->user->name }}
 					</div>
 
 					<div class="panel-body">

@@ -1,5 +1,5 @@
 @unless ($blog->tags->isEmpty())
-	<p><small><i><strong>Labels:</strong>
+	<p><small><i><strong>{{ trans('escuccim::blog.labels') }}:</strong>
 	@foreach($blog->tags as $tag)
 		<a href="{{ url('/blog/labels/' . $tag->name) }}">{{ $tag->name }}@unless($loop->last),
 		@endunless</a>

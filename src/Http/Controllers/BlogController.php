@@ -26,7 +26,7 @@ class BlogController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-    	// get blogs from DB or cache. If user is admin get from DB, else cache them for an hour    		
+        // get blogs from DB or cache. If user is admin get from DB, else cache them for an hour
 		$blogs = Blog::getAll($this->isUserAdmin());
 
     	// get links for archive

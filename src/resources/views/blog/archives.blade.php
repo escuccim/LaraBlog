@@ -1,6 +1,6 @@
 <div class="panel panel-info">
 	<div class="panel-heading">
-		Archives
+		{{ trans('escuccim::blog.archives') }}
 	</div>	
 	
 	<ul class="list-group">
