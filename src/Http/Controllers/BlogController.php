@@ -60,8 +60,9 @@ class BlogController extends Controller
 
 		// set the page title
 		$title = $blog->title;
+		$description = $blog->title;
 		
-		return view('escuccim::blog.show', compact('blog', 'links', 'comments', 'title'));
+		return view('escuccim::blog.show', compact('blog', 'links', 'comments', 'title', 'description'));
 	}
 	
 	/**
