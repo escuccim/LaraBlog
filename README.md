@@ -93,7 +93,7 @@ BlogClass::getComments('slug');
 ```
 This package also includes an RSS feed which uses the Roumen\Feed package to generate the feed. This is available at /feed.
 
-This supports localization and comes with English and French by default. Note that it does not provide a means to set the language dynamically yet and uses the value from your config/app.php file. I use strftime() to localize dates and times, but you will need to setlocale() yourself.
+By default the translation will use the value set in your config/app.php. If you want to overwrite the language on a per request basis write the language you want to use to session.locale and that value will replace the config value per request. Note that for time localization you will additionally need to setlocale(). My code currently does this but only for French as this is dependent on you having the proper locales installed on your server.
 
 ## Testing
 
