@@ -34,7 +34,10 @@
         ],
         "psr-4": {
             "Escuccim\\LaraBlog\\": "src"
-        }
+        },
+        "files": [
+            "src/functions.php"
+        ]
     },
     "scripts": {
         "test": "phpunit",

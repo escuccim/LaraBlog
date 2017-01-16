@@ -26,6 +26,7 @@ class BlogController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
+        setLanguage();
         // get blogs from DB or cache. If user is admin get from DB, else cache them for an hour
 		$blogs = Blog::getAll($this->isUserAdmin());
 
@@ -43,6 +44,7 @@ class BlogController extends Controller
 	 * @return view or redirect
 	 */
 	public function show($slug){		
+        setLanguage();
 		// only allow admin to get non-published blogs
 		if($this->isUserAdmin())
 			$blog = Blog::where('slug', $slug)->first();
@@ -143,6 +145,7 @@ class BlogController extends Controller
 	 * @return view
 	 **/
 	public function tags($name){
+        setLanguage();
 		$tag = Tag::where('name', $name)->first();
 			
 		if(!$tag)
@@ -164,6 +167,7 @@ class BlogController extends Controller
      * add a new comment, then redirect back to page
     */
     public function comment(Request $request){
+        setLanguage();
         $input['user_id'] = $request->user()->id;
         $input['blog_id'] = $request->input('blog_id');
         $input['body'] = $request->input('body');
