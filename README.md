@@ -57,11 +57,19 @@ You can choose to publish the config file and the views with:
 ``` bash
 php artisan vendor:publish
 ``` 
-The language files will be put to /resources/lang/vendor/larablog where you can either edit them or change them. You can add new translations by copying the blog.php file into a new directory and adding in the appropriate text. My code uses strftime to format the dates, but you will need to set the locale yourself, with setlocale() and will need to make sure you have the locales installed.
+The publishable files are separated into three groups:
+- lang - includes the language files in English and French and will be published to /resources/lang/vendor/larablog
+- config - will publish blog.php to /config/blog.php
+- views will publish the views to /resources/views/vendor/escuccim
 
-This will put the config file into config/blog.php where it can be edited. If you do not do this the default values will be used. The config file allows you to change the Blog title and description in the feed, to set the number of results per page returned by the paginator, and to disable caching if you so desire. 
+To only publish one of these groups add --tag=[lang|config|views]
 
-Also note that if you use my views they make use of the Bootstrap CSS files which come out-of-the-box with Laravel.
+**Notes on Publishable Files:**
+My code uses strftime to format the dates, but you will need to set the locale yourself, with setlocale() and will need to make sure you have the locales installed.
+
+The config file allows you to change the Blog title and description in the feed, to set the number of results per page returned by the paginator, and to disable caching if you so desire. 
+
+My views use Bootstrap CSS and some Javascript which comes with Laravel. If you change the CSS or JS files some features may not work.
 
 Note that the comments functionality of the blog will display an image referenced in the Users table if one exists, so if you want to allow users to upload images you need to add functionality for this yourself.
 
