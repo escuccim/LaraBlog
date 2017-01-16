@@ -6,6 +6,7 @@ All Notable changes to `larablog` will be documented in this file.
 
 ### Added
 - Translations for English and French
+- Function in Controller to pull language from session and set config accordingly
 
 ### Changes
 - Views to use translations instead of hardcoded data

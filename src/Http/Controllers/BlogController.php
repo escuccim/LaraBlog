@@ -43,7 +43,7 @@ class BlogController extends Controller
 	 * @param string $slug
 	 * @return view or redirect
 	 */
-	public function show($slug){		
+	public function show($slug){
         setLanguage();
 		// only allow admin to get non-published blogs
 		if($this->isUserAdmin())
