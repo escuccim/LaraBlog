@@ -34,12 +34,19 @@ class blogServiceProvider extends ServiceProvider
 
         // publish config if necessary
          $this->publishes([
-                 __DIR__.'/config/config.php' => config_path('blog.php'),
-                 __DIR__ . '/resources/views' => base_path('resources/views/vendor/escuccim'),
-                 __DIR__ . '/resources/lang' => base_path('resources/lang/vendor/larablog')
-         ]);
+                 __DIR__.'/config/config.php' => config_path('blog.php')
+         ], 'config');
 
-        // use the default configuration file as fallback
+         $this->publishes([
+             __DIR__ . '/resources/views' => base_path('resources/views/vendor/escuccim'),
+         ], 'views');
+
+        $this->publishes([
+            __DIR__ . '/resources/lang' => base_path('resources/lang/vendor/larablog'),
+        ], 'lang');
+
+
+         // use the default configuration file as fallback
          $this->mergeConfigFrom(
              __DIR__.'/config/config.php', 'blog'
          );
