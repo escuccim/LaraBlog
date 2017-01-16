@@ -7,7 +7,7 @@ use Escuccim\LaraBlog\Models\Blog;
 use Escuccim\LaraBlog\Models\Tag;
 use Escuccim\LaraBlog\Models\BlogComment;
 use Illuminate\Support\Facades\Auth;
-use Escuccim\LaraBlog\Requests\BlogRequest;
+use Escuccim\LaraBlog\Http\Requests\BlogRequest;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
 

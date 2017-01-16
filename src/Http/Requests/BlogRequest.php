@@ -1,6 +1,6 @@
 <?php
 
-namespace Escuccim\LaraBlog\Requests;
+namespace Escuccim\LaraBlog\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
