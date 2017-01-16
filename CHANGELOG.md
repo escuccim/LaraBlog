@@ -8,6 +8,7 @@ All Notable changes to `larablog` will be documented in this file.
 - Translations for English and French
 - Function in Controller to pull language from session and set config accordingly
 - Added config setting to disable flash messages
+- Updated archives so it translates the month
 
 ### Changes
 - Views to use translations instead of hardcoded data

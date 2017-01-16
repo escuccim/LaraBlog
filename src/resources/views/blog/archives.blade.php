@@ -9,7 +9,7 @@
 				<div class="panel-collapse collapse" id="c{{ $year }}">
 				<ul class="smallindent">
 					@foreach($months as $month => $posts)
-						<li class="small"><a href="#c{{ $year }}m{{$month}}" data-toggle="collapse">{{ $month }}</a>
+						<li class="small"><a href="#c{{ $year }}m{{$month}}" data-toggle="collapse">{{ strftime('%B', strtotime(date("Y-" . $month . "-01 00:00:00"))) }}</a>
 						<div class="panel-collapse collapse" id="c{{$year}}m{{$month}}">
 						<ul class="smallindent">
 							@foreach($posts as $post)

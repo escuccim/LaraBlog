@@ -158,10 +158,10 @@ class Blog extends Model
                     $currentYear = $link->year;
                 }
                 if($currentMonth != $link->month){
-                    $archiveArray[$link->year][$link->month_name] = [];
+                    $archiveArray[$link->year][$link->month] = [];
                     $currentMonth = $link->month;
                 }
-                $archiveArray[$link->year][$link->month_name][] = ['slug' => $link->slug, 'title' => $link->title];
+                $archiveArray[$link->year][$link->month][] = ['slug' => $link->slug, 'title' => $link->title];
             }
         } else {
             $archiveArray = [];
