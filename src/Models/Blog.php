@@ -89,6 +89,19 @@ class Blog extends Model
     	return $this->hasMany('Escuccim\LaraBlog\Models\BlogComment');
     }
 
+    public function getUniqueUsers(){
+        $users = $this->comments;
+        $userArray = [];
+        foreach($users as $key => $user){
+            if(in_array($user->user_id, $userArray)){
+                unset($users[$key]);
+            }
+            $userArray[] = $user->user_id;
+        }
+
+        return $users;
+    }
+
     /**
      * Gets the tags that belong to the article
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
