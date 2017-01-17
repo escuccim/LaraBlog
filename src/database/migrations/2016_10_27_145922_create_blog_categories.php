@@ -14,21 +14,21 @@ class CreateBlogCategories extends Migration
     public function up()
     {
         if (!Schema::hasTable('tags')) {
-        Schema::create('tags', function (Blueprint $table){
-        	$table->increments('id');
-        	$table->string('name');
-        	$table->timestamps();
-        });
-    	
-    	Schema::create('blog_tag', function (Blueprint $table) {
-    		$table->integer('blog_id')->unsigned()->index();
-    		$table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
-    		 
-    		$table->integer('tag_id')->unsigned()->index();
-    		$table->foreign('tag_id')->references('id')->on('tags');
-    		 
-    		$table->timestamps();
-        });
+            Schema::create('tags', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->timestamps();
+            });
+
+            Schema::create('blog_tag', function (Blueprint $table) {
+                $table->integer('blog_id')->unsigned()->index();
+                $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
+
+                $table->integer('tag_id')->unsigned()->index();
+                $table->foreign('tag_id')->references('id')->on('tags');
+
+                $table->timestamps();
+            });
         }
     }
 
