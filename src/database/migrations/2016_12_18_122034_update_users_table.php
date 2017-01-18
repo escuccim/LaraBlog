@@ -26,7 +26,7 @@ class UpdateUsersTable extends Migration
                 $table->boolean('active')->default(1);
             });
         }
-        if (!Schema::hasColumn('users', 'active')) {
+        if (!Schema::hasColumn('users', 'image')) {
             Schema::table('users', function (Blueprint $table) {
                 $table->string('image')->nullable();
             });
