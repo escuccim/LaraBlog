@@ -29,9 +29,6 @@
         "squizlabs/php_codesniffer": "^2.3"
     },
     "autoload": {
-        "classmap": [
-            "src/Models"
-        ],
         "psr-4": {
             "Escuccim\\LaraBlog\\": "src"
         },
