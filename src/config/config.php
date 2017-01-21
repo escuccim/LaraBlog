@@ -6,4 +6,5 @@ return [
     'blog_feed_description' => 'Blog Feed Description',
     'cache' => false,
     'show_flash_messages' => false,
+    'middleware'    => 'admin',
 ];
