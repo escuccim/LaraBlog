@@ -137,8 +137,8 @@ class Blog extends Model
      * Admin page results are never cached.
      */
     public static function blogLinks(){
-    	if(!Blog::isUserAdmin() && config('blog.cache')) {
-	    	$result = Cache::remember('blog:blog_archives', 120, function(){
+    	if(config('blog.cache')) {
+	    	$result = Cache::remember('blog:blog_archives', 720, function(){
 	    		return Blog::getBlogArchives();
 	    	});
     	} else {

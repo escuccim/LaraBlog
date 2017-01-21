@@ -257,16 +257,10 @@ class BlogController extends Controller
 	 * If cache is on, update the list of latest posts in the cache and update the archives list
 	 */
 	private function updateLatestPosts(){
+	    // if caching is on put the data into the cache
 	    if(config('blog.cache')) {
-            // do the latest posts
-	        $blogs = Blog::published()->orderBy('published_at', 'desc')->orderBy('id', 'desc')->limit(10)->get()->toArray();
-            $serialized = json_encode($blogs);
-            Cache::put('blog:latestposts', $serialized, 1440);
-
-            // do the archives list
-            $result = Cache::remember('blog:blog_archives', 120, function(){
-                return Blog::getBlogArchives();
-            });
+            Blog::latestPosts();
+            Blog::blogLinks();
         }
 		return true;
 	}
