@@ -2,7 +2,13 @@
 
 All Notable changes to `larablog` will be documented in this file.
 
-## [Unreleased] 
+## [Unreleased]
+
+### Added
+- Replaced references to 'admin' middleware with middleware referenced in config
+- Replaced calls to function 'isUserAdmin()' with reference to function specified in middleware
+
+## v1.1.3 2017-01-16
 
 ### Added
 - Translations for English and French

@@ -32,12 +32,14 @@ And add the following to the aliases array:
 'Feed' => Roumen\Feed\Feed::class,
 ```
 
-Registered the middleware in app\Http\Kernel.php to the routeMiddleware array:
+This package uses a middleware to determine what pages the user has access to. By default it uses my middleware which uses a flag in the Users table to indicate whether the user is an admin. To use this, add the following to /app/Http/Kernel.php:
 ```
 'admin' => \Escuccim\LaraBlog\Middleware\AdminMiddleware::class,
 ```
 
-Once you have installed this, run the migrations which will create the necessary database tables and add a few columns to the users table. 
+If you wish to use a different middleware change the 'middleware' key in config/blog.php to be the name of the middleware you want to use.
+
+Run the migrations which will create the necessary database tables and add a few columns to the users table. 
 
 ``` bash
 php artisan migrate
@@ -83,17 +85,11 @@ If you want to edit my views you can publish them to resources/views/vendor/escu
 php artisan vendor:publish
 ```
 
-If you prefer to write your own views I have provided the following static methods on the BlogClass.
-``` php
-$blog = new escuccim\LaraBlog\BlogClass();
-BlogClass::getAllArticles([isUserAdmin]); 
-BlogClass::getArticle('slug');
-BlogClass::getArchives();
-BlogClass::getComments('slug');
-```
 This package also includes an RSS feed which uses the Roumen\Feed package to generate the feed. This is available at /feed.
 
 By default the translation will use the value set in your config/app.php. If you want to overwrite the language on a per request basis write the language you want to use to session.locale and that value will replace the config value per request. Note that for time localization you will additionally need to setlocale(). My code currently does this but only for French as this is dependent on you having the proper locales installed on your server.
+
+This package uses a field it adds to the users table called 'type' to determine if the user has permission to add, edit and delete blog posts. If you wish to use your own permission system you can replace the value for 'is_user_admin' in the config file blog.php. This function should return true if the user has permission to do admin tasks and false otherwise.
 
 ## Testing
 
