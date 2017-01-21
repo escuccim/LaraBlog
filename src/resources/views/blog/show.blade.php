@@ -19,8 +19,7 @@
 					<div class="panel-body">
 						{!! $blog->body !!}
 						@include('escuccim::blog.tags')
-						@if(!Auth::guest())
-							@if(Auth::user()->type)
+						@if(config('blog.is_user_admin')())
 							<div class="row">
 								<div align="center">
 									<div class="btn-group">
@@ -31,7 +30,6 @@
 									</div>
 								</div>
 							</div>
-							@endif
 						@endif
 					</div>
 				</div>

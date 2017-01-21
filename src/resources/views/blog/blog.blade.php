@@ -44,12 +44,10 @@
 		</div>
 
 		<div class="col-md-2">
-			@if(!Auth::guest())
-				@if(Auth::user()->type)
+			@if(config('blog.is_user_admin')())
 				<div class="text-right">
 					<a href="/blog/create" class="btn btn-primary vcenter">Add Blog Post</a>
 				</div>
-				@endif
 			@endif
 			@include('escuccim::blog.archives')
 		</div>

@@ -7,4 +7,5 @@ return [
     'cache' => false,
     'show_flash_messages' => false,
     'middleware'    => 'admin',
+    'is_user_admin' => 'isUserAdmin',
 ];

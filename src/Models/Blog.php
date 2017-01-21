@@ -219,10 +219,6 @@ class Blog extends Model
      * @return bool
      */
 	public static function isUserAdmin(){
-        if(Auth::guest())
-            return false;
-        else {
-            return (Auth::user()->type);
-        }
+        return config('blog.is_user_admin')();
     }
 }
