@@ -120,15 +120,12 @@ class BlogController extends Controller
 	 */
 	public function update($id, BlogRequest $request){
 		// get the blog, update it
-		$blog = Blog::findOrFail($id);	
-		$blog->update($request->all());
-		
-		// make sure the slug is valid
-		$slug = str_slug($request->input('slug'));
-		$blog->slug = $slug;
-		
-		$blog->save();
-		
+		$blog = Blog::findOrFail($id);
+		$data = $request->all();
+		// slugify the slug
+        $data['slug'] = str_slug($request->input('slug'));
+		$blog->update($data);
+
 		// sync the tags
 		if($request->input('tags'))
 			$this->syncTags($blog, $request->input('tags'));
@@ -212,19 +209,13 @@ class BlogController extends Controller
         $data  = $request->all();
         $data['user_id'] = $user->id;
 
+        $slug = str_slug($request->input('slug'));
+        $slug = $this->checkSlug($slug);
+        $data['slug'] = $slug;
+
 		// create a blog from the form data
 		$blog = Blog::create($data);
 
-		// 	slugify the slug string
-		$slug = str_slug($request->input('slug'));
-		// make sure the slug is unique
-		$slug = $this->checkSlug($slug);
-		$blog->slug = $slug;
-		
-		// this shouldn't need to be here, but for some reason it defaults published at to today instead of to value from form
-		$blog->published_at = $request->input('published_at');
-		$blog->save();
-		
 		// sync tags
 		if($request->input('tags'))
 			$this->syncTags($blog, $request->input('tags'));
