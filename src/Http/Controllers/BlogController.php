@@ -119,12 +119,13 @@ class BlogController extends Controller
 	 * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
 	 */
 	public function update($id, BlogRequest $request){
-		// get the blog, update it
+		// get the blog, put the request into data
 		$blog = Blog::findOrFail($id);
 		$data = $request->all();
 		// slugify the slug
         $data['slug'] = str_slug($request->input('slug'));
-		$blog->update($data);
+		// update the blog
+        $blog->update($data);
 
 		// sync the tags
 		if($request->input('tags'))
@@ -151,14 +152,15 @@ class BlogController extends Controller
 	
 		// only admin can see non-published blogs
 		if($this->isUserAdmin())
-			$blogs = $tag->blogs()->latest('published_at')->paginate(15);
+			$blogs = $tag->blogs()->latest('published_at')->paginate(config('skooch.blog_results_per_page'));
 		else
-			$blogs = $tag->blogs()->latest('published_at')->published()->paginate(5);
+			$blogs = $tag->blogs()->latest('published_at')->published()->paginate(config('skooch.blog_results_per_page'));
 				 
 		$links = Blog::blogLinks();
-		$title = 'Articles tagged ' . $name;
-		
-		return view('escuccim::blog/blog', compact('blogs', 'links', 'name', 'title'));
+		$title = trans('larablog::blog.labelstitle') . ' ' . $name;
+		$description = $name;
+
+		return view('escuccim::blog/blog', compact('blogs', 'links', 'name', 'title', 'description'));
 	}
 
     /**
@@ -172,10 +174,11 @@ class BlogController extends Controller
 
         $slug = $request->input('slug');
         BlogComment::create($input);
-        flash()->success('Your comment has been posted.');
+        flash()->success(trans('larablog::blog.commentposted'));
 
         return redirect('/blog/' . $slug);
     }
+
 	/**
 	 * Delete a blog from the DB
 	 * @param int $id
