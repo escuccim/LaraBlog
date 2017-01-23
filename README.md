@@ -113,7 +113,7 @@ If you discover any security related issues, please email skooch@gmail.com inste
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/escuccim/blog.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/escuccim/larablog.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/escuccim/blog/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/escuccim/blog.svg?style=flat-square
