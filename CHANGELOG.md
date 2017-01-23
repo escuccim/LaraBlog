@@ -7,6 +7,7 @@ All Notable changes to `larablog` will be documented in this file.
 ### Added
 - Replaced references to 'admin' middleware with middleware referenced in config
 - Replaced calls to function 'isUserAdmin()' with reference to function specified in middleware
+- Replaced tinymce editor with CKeditor because the tinymce was starting to annoy me
 
 ### Fixed
 - Simplified controller code

@@ -62,4 +62,5 @@
 		allowClear: true,
 		tags: true,
 	});
+    CKEDITOR.replace( 'body' );
 </script>
