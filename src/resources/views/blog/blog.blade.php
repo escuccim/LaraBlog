@@ -46,7 +46,7 @@
 		<div class="col-md-2">
 			@if(config('blog.is_user_admin')())
 				<div class="text-right">
-					<a href="/blog/create" class="btn btn-primary vcenter">Add Blog Post</a>
+					<a href="/blog/create" class="btn btn-primary vcenter">{{ trans('larablog::blog.addpost') }}</a>
 				</div>
 			@endif
 			@include('escuccim::blog.archives')

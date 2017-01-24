@@ -24,8 +24,8 @@
 								<div align="center">
 									<div class="btn-group">
 										{!! Form::open(['method' => 'delete', 'class' => 'form-horizontal', 'url' => '/blog/' . $blog->id]) !!}
-										<a href="{{ url('/blog/' . $blog->id . '/edit') }}" class="btn btn-primary">Edit Blog</a>
-										<button type="submit" id="deleteBlog" class="btn btn-default">Delete Blog</button>
+										<a href="{{ url('/blog/' . $blog->id . '/edit') }}" class="btn btn-primary">{{ trans('larablog::blog.editpost') }}</a>
+										<button type="submit" id="deleteBlog" class="btn btn-default">{{ trans('larablog::blog.deletepost') }}</button>
 										{!! Form::close() !!}
 									</div>
 								</div>
