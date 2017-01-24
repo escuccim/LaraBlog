@@ -4,7 +4,7 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 
-This is a simple out-of-the-box blog package for Laravel. It supports localization and currently has files for English and French, but adding new languages is easy. Note that if you wish to use the localization you will have to set the config accordingly, this does not provide a means to change the language.
+This is a simple out-of-the-box blog package for Laravel. It supports localization and currently has files for English and French, but adding new languages is easy. Note that this package will localize to the language set in the app config. No means of translating the page per request is provided. If you need this look at escuccim/translate, my package which will translate either based on subdomain or from a session variable.
 
 ## Install
 
