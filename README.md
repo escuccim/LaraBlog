@@ -52,8 +52,10 @@ The migrations also add two fields to the users table:
 
 To load the CSS and JS files this package needs for the editor you need to add the following to your layouts/app.blade.php file in the header section:
 ```
+<script src="/js/app.js"></script>
 @yield('header')
 ```
+To enable the Javascript functions of the editors you will need to remove the script reference to app.js from the bottom of the layout file and put it in the header.
 
 You can choose to publish the config file and the views with:
 ``` bash
