@@ -30,6 +30,34 @@ class CreateBlogCategories extends Migration
                 $table->timestamps();
             });
         }
+
+        // seed the database
+        $tag = DB::table('tags')->where('name', 'test')->first();
+        if (!count($tag)) {
+            DB::table('tags')->insert([
+                'name' => 'test',
+            ]);
+        }
+
+        $blog = DB::table('blogs')->first();
+        if (!count($blog)) {
+            DB::table('blogs')->insert([
+                'user_id' => 1,
+                'title' => 'First Post',
+                'slug' => 'first-post',
+                'body' => 'First post. For test purposes.',
+                'published' => 1,
+                'published_at' => Carbon::now(),
+            ]);
+        }
+
+        $blogtag = DB::table('blog_tag')->first();
+        if(!count($blogtag)){
+            DB::table('blog_tag')->insert([
+                'blog_id' => 1,
+                'tag_id' => 1,
+            ]);
+        }
     }
 
     /**
