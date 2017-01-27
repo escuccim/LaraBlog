@@ -48,11 +48,10 @@
 </div>
 
 <script>
+    $('#tags').select2({
+        placeholder: 'Choose a tag:',
+        allowClear: true,
+        tags: true,
+    });
     CKEDITOR.replace( 'body' );
-	$('#tags').select2({
-		placeholder: 'Choose a tag:',
-		allowClear: true,
-		tags: true,
-	});
-
 </script>
