@@ -12,6 +12,7 @@ All Notable changes to `larablog` will be documented in this file.
 ### Fixed
 - Simplified controller code
 - Removed function and calls to setLanguage(), replaced with my middleware
+- Put missing function back in
 
 ## v1.1.3 2017-01-16
 
