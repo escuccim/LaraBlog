@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('header')
+@push('scripts')
 <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ url('feed') }}" />
-@endsection
+@endpush
 
 @section('content')
 <div class="container">
