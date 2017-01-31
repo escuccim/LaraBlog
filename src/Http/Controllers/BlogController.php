@@ -167,11 +167,20 @@ class BlogController extends Controller
         $input['user_id'] = $request->user()->id;
         $input['blog_id'] = $request->input('blog_id');
         $input['body'] = $request->input('body');
+        $input['parent_comment_id'] = $request->input('parent_comment_id');
 
         $slug = $request->input('slug');
         BlogComment::create($input);
         flash()->success(trans('larablog::blog.commentposted'));
 
+        return redirect('/blog/' . $slug);
+    }
+
+    public function deleteComment($id, Request $request)
+    {
+        $comment = BlogComment::where('id', $id)->first();
+        $slug = $comment->post->slug;
+        $comment->destroy($id);
         return redirect('/blog/' . $slug);
     }
 

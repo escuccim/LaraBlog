@@ -23,10 +23,12 @@
 							<div class="row">
 								<div align="center">
 									<div class="btn-group">
-										{!! Form::open(['method' => 'delete', 'class' => 'form-horizontal', 'url' => '/blog/' . $blog->id]) !!}
+										<form action="/blog/{{$blog->id}}" class="form-horizontal" method="post">
+											{{ csrf_field() }}
+											<input name="_method" type="hidden" value="DELETE">
 										<a href="{{ url('/blog/' . $blog->id . '/edit') }}" class="btn btn-primary">{{ trans('larablog::blog.editpost') }}</a>
 										<button type="submit" id="deleteBlog" class="btn btn-default">{{ trans('larablog::blog.deletepost') }}</button>
-										{!! Form::close() !!}
+										</form>
 									</div>
 								</div>
 							</div>

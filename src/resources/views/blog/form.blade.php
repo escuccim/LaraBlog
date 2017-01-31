@@ -1,44 +1,48 @@
 <div id="app">
 <div class="form-group">
-	{!! Form::label('title', trans('larablog::blog.title') . ':', ['class' => 'control-label col-md-1']) !!}
+	<label for="title" class="control-label col-md-1">{{ trans('larablog::blog.title') }}:</label>
 	<div class="col-md-10">
-		{!! Form::text('title', null, ['class' => 'form-control']) !!}
+		<input class="form-control" name="title" type="text" id="title" value="{{ $blog->title }}">
 	</div>
 </div>
 
 <div class="form-group">
-	{!! Form::label('slug', trans('larablog::blog.slug') . ':', ['class' => 'control-label col-md-1']) !!}
+	<label for="slug" class="control-label col-md-1">{{ trans('larablog::blog.slug') }}:</label>
 	<div class="col-md-10">
-		{!! Form::text('slug', null, ['class' => 'form-control']) !!}
+		<input class="form-control" name="slug" type="text" id="slug" value="{{ $blog->slug }}">
 	</div>
 </div>
 
 <div class="form-group">
-	{!! Form::label('body', trans('larablog::blog.body') . ':', ['class' => 'control-label col-md-1']) !!}
+	<label for="body" class="control-label col-md-1">{{ trans('larablog::blog.body') }}:</label>
 	<div class="col-md-10">
-		{!! Form::textarea('body', null, ['class' => 'form-control', 'id' => 'body']) !!}
+		<textarea class="form-control" id="body" name="body" cols="50" rows="10">{{ $blog->body }}</textarea>
 	</div>
 </div>
 
 <div class="form-group">
-	{!! Form::label('tags', trans('larablog::blog.tags') . ':', ['class' => 'control-label col-md-1']) !!}
+	<label for="tags" class="control-label col-md-1">{{ trans('larablog::blog.tags') }}:</label>
 	<div class="col-md-10">
-		{!! Form::select('tags[]', $tags, $tagArray, ['id' => 'tags', 'class' => 'form-control', 'multiple' => 'multiple']) !!}
+		<select id="tags" class="form-control" multiple="multiple" name="tags[]">
+			@foreach($tags as $key => $value)
+				<option value="{{$key}}" @if(count($tagArray))@foreach($tagArray as $tag) {{ $tag == $key ? ' selected' : '' }}@endforeach @endif>{{$value}}</option>
+			@endforeach
+		</select>
 	</div>
 </div>
 
 <div class="form-group">
-	{!! Form::label('published_at', trans('larablog::blog.publish_on') . ':', ['class' => 'control-label col-md-1']) !!}
+	<label for="published_at" class="control-label col-md-1">{{ trans('larablog::blog.publish_on') }}:</label>
 	<div class="col-md-10">
-		{!! Form::input('date', 'published_at', $blog->published_at->format('Y-m-d'), ['class' => 'form-control']) !!}
+		<input class="form-control" name="published_at" type="date" value="{{$blog->published_at->format('Y-m-d')}}">
 	</div>
 </div>
 
 <div class="form-group">
-	{!! Form::label('published', trans('larablog::blog.published').':', ['class' => 'control-label col-md-1']) !!}
+	<label for="published" class="control-label col-md-1">{{ trans('larablog::blog.published') }}:</label>
 	<div class="col-md-10">
-		{!! Form::radio('published', 1, null, ['class' => 'radio-inline']) !!} {{ trans('larablog::blog.yes') }}
-		{!! Form::radio('published', 0, null, ['class' => 'radio-inline']) !!} {{ trans('larablog::blog.no') }}
+		<input class="radio-inline" name="published" type="radio" value="1" @if($blog->published) checked @endif> {{ trans('larablog::blog.yes') }}
+		<input class="radio-inline" name="published" type="radio" value="0" @if(!$blog->published) checked @endif> {{ trans('larablog::blog.no') }}
 	</div>
 </div>
 

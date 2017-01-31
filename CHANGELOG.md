@@ -8,6 +8,10 @@ All Notable changes to `larablog` will be documented in this file.
 - Replaced references to 'admin' middleware with middleware referenced in config
 - Replaced calls to function 'isUserAdmin()' with reference to function specified in middleware
 - Replaced tinymce editor with CKeditor because the tinymce was starting to annoy me
+- Removed references to Laravel's form package to simplify installation and reduce dependencies
+- Added ability to reply to comments
+- Added nested comment display
+- Added ability to delete your own comments
 
 ### Fixed
 - Simplified controller code

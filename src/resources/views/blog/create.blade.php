@@ -19,9 +19,10 @@
 				</div>
 				<div class="panel-body">
 					@include('escuccim::errors.list')
-					{!! Form::model($blog, ['url' => 'blog', 'class' => 'form-horizontal']) !!}
+					<form action="/blog" method="post" class="form-horizontal">
+						{{ csrf_field() }}
 						@include('escuccim::blog.form', ['submitButtonText' => trans('larablog::blog.addpost')])
-					{!! Form::close() !!}
+					</form>
 				</div>
 			</div>
 		</div>

@@ -86,7 +86,7 @@ class Blog extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments(){
-    	return $this->hasMany('Escuccim\LaraBlog\Models\BlogComment');
+    	return $this->hasMany('Escuccim\LaraBlog\Models\BlogComment')->whereNull('parent_comment_id');
     }
 
     public function getUniqueUsers(){

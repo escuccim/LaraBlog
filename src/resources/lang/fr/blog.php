@@ -33,4 +33,6 @@ return [
     'yes'           => 'Oui',
     'no'           => 'Non',
     'writeanewarticle'  => 'Rédiger un nouvel article',
+    'reply'     => 'Répondre',
+    'delete'    => 'Supprimer',
 ];

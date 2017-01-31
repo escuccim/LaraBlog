@@ -10,4 +10,5 @@ Route::group(['middleware' => ['web']], function() {
 
     /* Blog comments */
     Route::post('/blog/comment/add', 'BlogController@comment');
+    Route::delete('/blog/comment/delete/{id}', 'BlogController@deleteComment');
 });

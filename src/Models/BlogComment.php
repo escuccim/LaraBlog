@@ -14,6 +14,7 @@ class BlogComment extends Model
 			'body',
 			'user_id',
 			'blog_id',
+            'parent_comment_id',
 	];
 
     /**
@@ -31,4 +32,9 @@ class BlogComment extends Model
 	public function post(){
 		return $this->belongsTo('Escuccim\LaraBlog\Models\Blog', 'blog_id');
 	}
+
+	public function replies(){
+	    $replies = BlogComment::where('parent_comment_id', $this->id)->orderBy('created_at', 'asc')->get();
+	    return $replies;
+    }
 }

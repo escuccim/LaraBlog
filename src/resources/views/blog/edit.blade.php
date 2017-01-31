@@ -22,9 +22,11 @@
 				</div>
 				<div class="panel-body">
 					@include('escuccim::errors.list')
-					{!! Form::model($blog, ['method' => 'patch', 'class' => 'form-horizontal', 'url' => '/blog/' . $blog->id]) !!}
+					<form action="/blog/{{$blog->id}}" class="form-horizontal" method="post">
+					<input name="_method" type="hidden" value="PATCH">
+					{{ csrf_field() }}
 						@include('escuccim::blog.form', ['submitButtonText' => trans('larablog::blog.update')])
-					{!! Form::close() !!}
+					</form>
 				</div>
 			</div>
 		</div>

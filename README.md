@@ -20,15 +20,12 @@ Next register the components:
 In config/app.php add the following to the providers array:
 ```
 Escuccim\LaraBlog\blogServiceProvider::class,
-Collective\Html\HtmlServiceProvider::class,
 Laracasts\Flash\FlashServiceProvider::class,
 Roumen\Feed\FeedServiceProvider::class,
 ```
 
 And add the following to the aliases array:
 ```
-'Form' => Collective\Html\FormFacade::class,
-'Html' => Collective\Html\HtmlFacade::class,
 'Feed' => Roumen\Feed\Feed::class,
 ```
 
@@ -53,7 +50,7 @@ The migrations also add two fields to the users table:
 To load the CSS and JS files this package needs for the editor you need to add the following to your layouts/app.blade.php file in the header section:
 ```
 <script src="/js/app.js"></script>
-@yield('header')
+@stack('header')
 ```
 To enable the Javascript functions of the editors you will need to remove the script reference to app.js from the bottom of the layout file and put it in the header.
 
