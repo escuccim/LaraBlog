@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class FeedController extends Controller
 {
     public function generate(){
-		$blogs = Blog::latest('published_at')->orderBy('id', 'desc')->published()->take(10)->get();
+		$blogs = Blog::latest('published_at')->orderBy('id', 'desc')->published()->take(20)->get();
 		
 		$feed = \App::make('feed');
 		$feed->title = config('blog.blog_feed_title');

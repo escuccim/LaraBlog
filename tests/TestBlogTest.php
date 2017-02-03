@@ -117,14 +117,7 @@ class TestBlogTest extends BrowserKitTest
         // create an admin user
         $user = $this->createTestUser(1);
 
-        // get id of tag for test
-        $test = Tag::where('name', 'test')->first();
-        // if we don't have one add it
-        if (!count($test)) {
-            Tag::create([
-                'name' => 'test',
-            ]);
-        }
+        $test = $this->addOrGetTestLabel();
 
         // get some fake data
         $data = $this->generateTestData();
@@ -137,7 +130,7 @@ class TestBlogTest extends BrowserKitTest
             ->type($data['title'], 'title')
             ->type($data['slug'], 'slug')
             ->type($data['body'], 'body')
-            ->select($test->id, 'tags')
+            ->select($test, 'tags')
             ->press(html_entity_decode(trans('larablog::blog.addpost')))
             ->see('Your blog has been created')
             ->seePageIs('/blog')
@@ -163,6 +156,9 @@ class TestBlogTest extends BrowserKitTest
         // create a blog
         $blog = $this->insertSampleData();
 
+        // get a tag to test with
+        $test = $this->addOrGetTestLabel();
+
         // turn off caching
         config(['blog.cache' => false]);
 
@@ -182,6 +178,7 @@ class TestBlogTest extends BrowserKitTest
             ->type($data['title'], 'title')
             ->type($data['slug'], 'slug')
             ->type($data['body'], 'body')
+            ->select($test, 'tags')
             ->press(html_entity_decode(trans('larablog::blog.update')))
             ->assertResponseOk();
 
@@ -212,6 +209,7 @@ class TestBlogTest extends BrowserKitTest
 
         // set the blog back to published
         $blog->published = 1;
+        $blog->published_at = $data['published_at'];
         $blog->save();
 
         // check that it does appear
@@ -306,6 +304,19 @@ class TestBlogTest extends BrowserKitTest
         ]);
     }
 
+    private function addOrGetTestLabel(){
+        // get id of tag for test
+        $test = Tag::where('name', 'test')->first();
+        // if we don't have one add it
+        if (!count($test)) {
+            $test = Tag::create([
+                'name' => 'test',
+            ]);
+        }
+
+        return $test->id;
+    }
+
     private function createTestUser($admin = 0){
         $user = factory(App\User::class)->create();
         $user->type = $admin;
@@ -320,7 +331,7 @@ class TestBlogTest extends BrowserKitTest
         $text = $faker->paragraphs(3, true);
         $title = $faker->sentence;
         $slug = str_slug($title);
-        $published_at = date('Y-m-d');
+        $published_at = date('Y-m-d', strtotime("-1 days"));
 
         $data = [
             'title' => $title,
