@@ -13,9 +13,11 @@ class UpdateBlogComments extends Migration
      */
     public function up()
     {
-        Schema::table('blogcomments', function (Blueprint $table) {
-            $table->integer('parent_comment_id')->nullable();
-        });
+        if (!Schema::hasColumn('blogcomments', 'parent_comment_id')) {
+            Schema::table('blogcomments', function (Blueprint $table) {
+                $table->integer('parent_comment_id')->nullable();
+            });
+        }
     }
 
     /**
