@@ -9,8 +9,8 @@
   "image": {
     "@type": "ImageObject",
     "url": "{{ app_url() . $blog->user->image }}",
-    "height": "{{ getimagesize(public_path() . $blog->user->image)[1] }}",
-    "width":  "{{ getimagesize(public_path() . $blog->user->image)[0] }}"
+    "height": "123",
+    "width":  "100"
   },
   "headline": "{{ $blog->title }}",
   "datePublished": "{{ date(DATE_ATOM, strtotime($blog->published_at)) }}",
