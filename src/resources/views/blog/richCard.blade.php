@@ -8,9 +8,9 @@
   },
   "image": {
     "@type": "ImageObject",
-    "url": "{{ app_url() . $blog->user->image }}",
-    "height": "123",
-    "width":  "100"
+    "url": "{{  asset($blog->image ? $blog->image : $blog->user->image) }}",
+    "height": "{{ $blog->image_height ? $blog->image_height : '125' }}",
+    "width":  "{{ $blog->image_width ? $blog->image_width : '100' }}"
   },
   "headline": "{{ $blog->title }}",
   "datePublished": "{{ date(DATE_ATOM, strtotime($blog->published_at)) }}",
@@ -24,7 +24,7 @@
     "name": "{{ app_name() }}",
     "logo": {
             "@type": "ImageObject",
-            "url": "{{ app_url() . $blog->user->image }}"
+            "url": "{{ asset($blog->user->image) }}"
         }
     }
   },

@@ -122,7 +122,19 @@ class BlogController extends Controller
 		$data = $request->all();
 		// slugify the slug
         $data['slug'] = str_slug($request->input('slug'));
-		// update the blog
+
+        // if an image is specified, get the height and width
+        if($request->image) {
+            if(file_exists(url($request->image))) {
+                $imageDetails = getimagesize(url($request->image));
+                $blog->image_height = $imageDetails[1];
+                $blog->image_width = $imageDetails[0];
+            } else {
+                $blog->image_height = 100;
+                $blog->image_width = 100;
+            }
+        }
+        // update the blog
         $blog->update($data);
 
 		// sync the tags
@@ -223,6 +235,16 @@ class BlogController extends Controller
 
 		// create a blog from the form data
 		$blog = Blog::create($data);
+
+        // if an image is specified, get the height and width
+        if($request->image) {
+            if(file_exists(url($request->image))) {
+                $imageDetails = getimagesize(url($request->image));
+                $blog->image_height = $imageDetails[1];
+                $blog->image_width = $imageDetails[0];
+                $blog->save();
+            }
+        }
 
 		// sync tags
 		if($request->input('tags'))

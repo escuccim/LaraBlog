@@ -17,6 +17,7 @@ class Blog extends Model
     	'body',
     	'published_at',
     	'published',
+        'image',
     ];
     
     protected $dates = ['published_at'];

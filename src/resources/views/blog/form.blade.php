@@ -14,6 +14,13 @@
 </div>
 
 <div class="form-group">
+	<label for="image" class="control-label col-md-1">{{ trans('larablog::blog.image') }}:</label>
+	<div class="col-md-10">
+		<input class="form-control" name="image" type="text" id="image" value="{{ $blog->image }}">
+	</div>
+</div>
+
+<div class="form-group">
 	<label for="body" class="control-label col-md-1">{{ trans('larablog::blog.body') }}:</label>
 	<div class="col-md-10">
 		<textarea class="form-control" id="body" name="body" cols="50" rows="10">{{ $blog->body }}</textarea>

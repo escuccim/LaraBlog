@@ -17,6 +17,8 @@ All Notable changes to `larablog` will be documented in this file.
 - Added ability to reply to comments
 - Added nested comment display
 - Added ability to delete your own comments
+- Added RichCard with JSON data
+- Added image to display in rich card, if available
 
 ### Fixed
 - Simplified controller code

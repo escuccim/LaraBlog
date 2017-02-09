@@ -35,4 +35,5 @@ return [
     'writeanewarticle'  => 'Write a New Article',
     'reply'     => 'Reply',
     'delete'    => 'Delete',
+    'image'     => 'Image',
 ];
