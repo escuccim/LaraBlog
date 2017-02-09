@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('header')
+	@include('escuccim::blog.richCard')
+@endsection
+
 @section('content')
 <div class="container">
 	@if(config('blog.show_flash_messages'))
