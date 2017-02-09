@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('header')
-	@include('escuccim::blog.richCard')
+	@if(config('blog.use_rich_card'))
+		@include('escuccim::blog.richCard')
+	@endif
 @endsection
 
 @section('content')

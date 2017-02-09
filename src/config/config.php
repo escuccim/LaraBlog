@@ -8,4 +8,5 @@ return [
     'show_flash_messages' => false,
     'middleware'    => 'admin',
     'is_user_admin' => 'isUserAdmin',
+    'use_rich_card' => true,
 ];
