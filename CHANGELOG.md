@@ -24,6 +24,8 @@ All Notable changes to `larablog` will be documented in this file.
 - Simplified controller code
 - Removed function and calls to setLanguage(), replaced with my middleware
 - Put missing function back in
+- Fixed error in date and time display
+- Fixed error where comment form was showing to users who were not logged in
 
 ## v1.1.3 2017-01-16
 

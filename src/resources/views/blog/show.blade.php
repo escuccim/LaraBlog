@@ -17,7 +17,7 @@
 				<div class="panel {{ $blog->getBlogStatus() }}">
 					<div class="panel-heading">
 			
-				<i>{{ strftime('%A %d %B %Y', strtotime($blog->published_at)) }} {{ trans('larablog::blog.at') }} {{ strftime('%A %d %B %Y', strtotime($blog->published_at))  }}</i>
+				<i>{{ strftime('%A %d %B %Y', strtotime($blog->published_at)) }} {{ trans('larablog::blog.at') }} {{ strftime('%H:%M', strtotime($blog->updated_at))  }}</i>
 						<h2>{{ $blog->title }}</h2>
 				{{ trans('larablog::blog.by') }} {{ $blog->user->name }}
 					</div>

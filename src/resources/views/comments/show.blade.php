@@ -35,6 +35,8 @@
         </div>
     </div>
 </article>
-<div class="panel panel-default collapse" id="comment-parent-{{$comment->id}}">
-    @include('escuccim::comments._form')
-</div>
+@if(Auth::check())
+    <div class="panel panel-default collapse" id="comment-parent-{{$comment->id}}">
+        @include('escuccim::comments._form')
+    </div>
+@endif
