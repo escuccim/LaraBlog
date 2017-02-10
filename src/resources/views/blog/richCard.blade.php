@@ -24,7 +24,7 @@
     "name": "{{ app_name() }}",
     "logo": {
             "@type": "ImageObject",
-            "url": "{{ asset($blog->user->image) }}"
+            "url": "{{ asset('/images/logo.png') }}"
         }
     }
   },
