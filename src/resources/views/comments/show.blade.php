@@ -17,25 +17,27 @@
                         <form action="/blog/comment/delete/{{ $comment->id }}" method="post" class="form-horizontal" onSubmit="return confirm('Are you sure you want to delete this comment?');">
                     @endif
 
-                    <div class="list-group-item">
-                    <a href="#comment-parent-{{$comment->id}}" data-toggle="collapse" class="btn btn-primary btn-sm">{!! trans('larablog::blog.reply') !!}</a>
-                    &nbsp; &nbsp; &nbsp;
-                    @if(Auth::user()->id == $comment->author->id)
-                            <input name="_method" type="hidden" value="DELETE">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-default btn-sm">{!! trans('larablog::blog.delete') !!}</button>
-                    @endif
-                    </div>
+                    @if(!isset($hidereply))
+                        <div class="list-group-item">
+                        <a href="#comment-parent-{{$comment->id}}" data-toggle="collapse" class="btn btn-primary btn-sm">{!! trans('larablog::blog.reply') !!}</a>
+                        &nbsp; &nbsp; &nbsp;
+                        @if(Auth::user()->id == $comment->author->id)
+                                <input name="_method" type="hidden" value="DELETE">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-default btn-sm">{!! trans('larablog::blog.delete') !!}</button>
+                        @endif
+                        </div>
 
-                    @if(Auth::user()->id == $comment->author->id)
-                        </form>
+                        @if(Auth::user()->id == $comment->author->id)
+                            </form>
+                        @endif
                     @endif
                 @endif
             </div>
         </div>
     </div>
 </article>
-@if(Auth::check())
+@if(Auth::check() && !isset($hidereply))
     <div class="panel panel-default collapse" id="comment-parent-{{$comment->id}}">
         @include('escuccim::comments._form')
     </div>
