@@ -13,12 +13,14 @@
 	</div>
 </div>
 
-<div class="form-group">
-	<label for="image" class="control-label col-md-1">{{ trans('larablog::blog.image') }}:</label>
-	<div class="col-md-10">
-		<input class="form-control" name="image" type="text" id="image" value="{{ $blog->image }}">
+@if(config('blog.use_rich_card'))
+	<div class="form-group">
+		<label for="image" class="control-label col-md-1">{{ trans('larablog::blog.image') }}:</label>
+		<div class="col-md-10">
+			<input class="form-control" name="image" type="text" id="image" value="{{ $blog->image }}">
+		</div>
 	</div>
-</div>
+@endif
 
 <div class="form-group">
 	<label for="body" class="control-label col-md-1">{{ trans('larablog::blog.body') }}:</label>

@@ -90,6 +90,8 @@ By default the translation will use the value set in your config/app.php. If you
 
 This package uses a field it adds to the users table called 'type' to determine if the user has permission to add, edit and delete blog posts. If you wish to use your own permission system you can replace the value for 'is_user_admin' in the config file blog.php. This function should return true if the user has permission to do admin tasks and false otherwise.
 
+In the config file there is a value called use_rich_card. If this is set to true a rich card will be added to the article pages and a field will be added to the add and edit article forms to allow you to specify a URI to an image to be used in the rich card.
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.

@@ -3,14 +3,13 @@
 All Notable changes to `larablog` will be documented in this file.
 
 ## Unreleased 
-
-
 ## v.1.2.0-beta.2 [2017-02-12]
 
 ### Added
 - Updated and improved tests
 - Added RichCard with JSON data
 - Added image to display in rich card, if available
+- Added value for rich card logo to config
 
 ### Fixed
 - Fixed error where controller was referencing non-existent config file
