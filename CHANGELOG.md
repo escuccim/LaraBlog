@@ -6,6 +6,13 @@ All Notable changes to `larablog` will be documented in this file.
 
 ### Added
 - Updated and improved tests
+- Added RichCard with JSON data
+- Added image to display in rich card, if available
+
+### Fixed
+- Fixed error where controller was referencing non-existent config file
+- Fixed error in date and time display
+- Fixed error where comment form was showing to users who were not logged in
 
 ## v1.2.0-beta.1 [2017-01-31]
 
@@ -17,8 +24,6 @@ All Notable changes to `larablog` will be documented in this file.
 - Added ability to reply to comments
 - Added nested comment display
 - Added ability to delete your own comments
-- Added RichCard with JSON data
-- Added image to display in rich card, if available
 
 ### Fixed
 - Simplified controller code

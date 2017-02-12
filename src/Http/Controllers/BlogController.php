@@ -130,8 +130,8 @@ class BlogController extends Controller
                 $blog->image_height = $imageDetails[1];
                 $blog->image_width = $imageDetails[0];
             } else {
-                $blog->image_height = 100;
-                $blog->image_width
+                $blog->image_height = 125;
+                $blog->image_width = 100;
             }
         }
         // update the blog
