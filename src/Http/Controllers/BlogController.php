@@ -131,7 +131,7 @@ class BlogController extends Controller
                 $blog->image_width = $imageDetails[0];
             } else {
                 $blog->image_height = 100;
-                $blog->image_width = 100;
+                $blog->image_width
             }
         }
         // update the blog
@@ -161,10 +161,10 @@ class BlogController extends Controller
 	
 		// only admin can see non-published blogs
 		if($this->isUserAdmin())
-			$blogs = $tag->blogs()->latest('published_at')->paginate(config('skooch.blog_results_per_page'));
+			$blogs = $tag->blogs()->latest('published_at')->paginate(config('blog.paginator_length'));
 		else
-			$blogs = $tag->blogs()->latest('published_at')->published()->paginate(config('skooch.blog_results_per_page'));
-				 
+			$blogs = $tag->blogs()->latest('published_at')->published()->paginate(config('blog.paginator_length'));
+
 		$links = Blog::blogLinks();
 		$title = trans('larablog::blog.labelstitle') . ' ' . $name;
 		$description = $name;
