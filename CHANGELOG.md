@@ -2,7 +2,10 @@
 
 All Notable changes to `larablog` will be documented in this file.
 
-## [Unreleased]
+## Unreleased 
+
+
+## v.1.2.0-beta.2 [2017-02-12]
 
 ### Added
 - Updated and improved tests
