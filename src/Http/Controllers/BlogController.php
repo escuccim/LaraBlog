@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Escuccim\LaraBlog\Http\Requests\BlogRequest;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
+use JeroenG\Packager\PackagerGitCommand;
 
 
 class BlogController extends Controller
@@ -125,15 +126,11 @@ class BlogController extends Controller
 
         // if an image is specified, get the height and width
         if($request->image) {
-            if(file_exists(url($request->image))) {
-                $imageDetails = getimagesize(url($request->image));
-                $blog->image_height = $imageDetails[1];
-                $blog->image_width = $imageDetails[0];
-            } else {
-                $blog->image_height = 125;
-                $blog->image_width = 100;
-            }
+            $dimensions = $this->getImageSize($request->image);
+            $data['image_height'] = $dimensions['height'];
+            $data['image_width'] = $dimensions['width'];
         }
+
         // update the blog
         $blog->update($data);
 
@@ -233,18 +230,15 @@ class BlogController extends Controller
         $slug = $this->checkSlug($slug);
         $data['slug'] = $slug;
 
-		// create a blog from the form data
-		$blog = Blog::create($data);
-
         // if an image is specified, get the height and width
         if($request->image) {
-            if(file_exists(url($request->image))) {
-                $imageDetails = getimagesize(url($request->image));
-                $blog->image_height = $imageDetails[1];
-                $blog->image_width = $imageDetails[0];
-                $blog->save();
-            }
+           $dimensions = $this->getImageSize($request->image);
+           $data['image_width'] = $dimensions['width'];
+           $data['image_height'] = $dimensions['height'];
         }
+
+        // create a blog from the form data
+        $blog = Blog::create($data);
 
 		// sync tags
 		if($request->input('tags'))
@@ -273,7 +267,26 @@ class BlogController extends Controller
 		}
 		$blog->tags()->sync($tagArray);
 	}
-	
+
+	private function getImageSize($image)
+    {
+        $file = url($image);
+        $file_headers = @get_headers($file);
+        if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+            $height = 125;
+            $width = 100;
+        } else {
+            $imageDetails = getimagesize(url($image));
+            $height = $imageDetails[1];
+            $width = $imageDetails[0];
+        }
+
+        return [
+            'height'    => $height,
+            'width'     => $width
+        ];
+    }
+
 	/**
 	 * If cache is on, update the list of latest posts in the cache and update the archives list
 	 */

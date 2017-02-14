@@ -15,6 +15,7 @@ All Notable changes to `larablog` will be documented in this file.
 - Fixed error where controller was referencing non-existent config file
 - Fixed error in date and time display
 - Fixed error where comment form was showing to users who were not logged in
+- Fixed error with sizing of images if specified
 
 ## v1.2.0-beta.1 [2017-01-31]
 

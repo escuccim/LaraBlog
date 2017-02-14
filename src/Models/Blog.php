@@ -18,6 +18,8 @@ class Blog extends Model
     	'published_at',
     	'published',
         'image',
+        'image_width',
+        'image_height',
     ];
     
     protected $dates = ['published_at'];

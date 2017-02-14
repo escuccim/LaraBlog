@@ -4,6 +4,9 @@
 	@if(config('blog.use_rich_card'))
 		@include('escuccim::blog.richCard')
 	@endif
+	@if(config('blog.include_amp_href'))
+		<link rel="amphtml" href="{{ url('/amp/blog/' . $blog->slug) }}">
+	@endif
 @endsection
 
 @section('content')
