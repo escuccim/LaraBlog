@@ -126,7 +126,11 @@ class BlogController extends Controller
 
         // if an image is specified, get the height and width
         if($request->image) {
-            $dimensions = $this->getImageSize($request->image);
+            if(config('blog.download_images')) {
+                $image = $this->downloadImage($request->image);
+                $data['image'] = $image;
+            }
+            $dimensions = $this->getImageSize($data['image']);
             $data['image_height'] = $dimensions['height'];
             $data['image_width'] = $dimensions['width'];
         }
@@ -185,6 +189,12 @@ class BlogController extends Controller
         return redirect('/blog/' . $slug);
     }
 
+    /**
+     * Delete a comment specified by $id
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function deleteComment($id, Request $request)
     {
         $comment = BlogComment::where('id', $id)->first();
@@ -232,9 +242,13 @@ class BlogController extends Controller
 
         // if an image is specified, get the height and width
         if($request->image) {
-           $dimensions = $this->getImageSize($request->image);
-           $data['image_width'] = $dimensions['width'];
-           $data['image_height'] = $dimensions['height'];
+            if(config('blog.download_images')) {
+                $image = $this->downloadImage($request->image);
+                $data['image'] = $image;
+            }
+            $dimensions = $this->getImageSize($data['image']);
+            $data['image_width'] = $dimensions['width'];
+            $data['image_height'] = $dimensions['height'];
         }
 
         // create a blog from the form data
@@ -268,6 +282,52 @@ class BlogController extends Controller
 		$blog->tags()->sync($tagArray);
 	}
 
+	private function downloadImage($image)
+    {
+        $location = '/storage/blog_images/';
+        // check if image is local already
+        if(str_contains($image, 'http')) {
+            // check if the file exists here already
+            $pathArray = explode('/', $image);
+            $fileName = end($pathArray);
+            $path = public_path() . $location;
+            if(file_exists($path . $fileName)) {
+                // do nothing
+               $uri = $location . $fileName;
+            } else {
+                // download the file
+                $this->copyRemoteFile($image, $path . $fileName);
+                $uri = $location . $fileName;
+            }
+        }
+        // else the file is local so don't do anything
+        else {
+            return $image;
+        }
+        return $uri;
+    }
+
+    /**
+     * Copies a file from remote URL to local file
+     * @param $fromUrl
+     * @param $toFile
+     * @return bool
+     */
+    private function copyRemoteFile($fromUrl, $toFile) {
+        try {
+            $client = new \GuzzleHttp\Client();
+            $request = $client->get($fromUrl, ['save_to' => $toFile]);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Get the dimensions of an image to store in the database
+     * @param $image
+     * @return array
+     */
 	private function getImageSize($image)
     {
         $file = url($image);
@@ -299,6 +359,11 @@ class BlogController extends Controller
 		return true;
 	}
 
+    /**
+     * This really isn't very useful, could easily be replaced and simplified, but it's working
+     * Runs the function specified in the config to determine whether the user has admin privileges or not
+     * @return mixed
+     */
 	private function isUserAdmin(){
        return config('blog.is_user_admin')();
     }

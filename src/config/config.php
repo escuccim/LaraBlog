@@ -11,4 +11,5 @@ return [
     'use_rich_card' => true,
     'logo'      => 'images/logo.png',
     'include_amp_href'  => true,
+    'download_images'   => true,
 ];
