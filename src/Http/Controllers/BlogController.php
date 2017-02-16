@@ -287,9 +287,8 @@ class BlogController extends Controller
         $location = '/storage/blog_images/';
         // check if image is local already
         if(str_contains($image, 'http')) {
-            // check if the file exists here already
-            $pathArray = explode('/', $image);
-            $fileName = end($pathArray);
+            // if there's no filename generate one
+            $fileName = $this->checkFileName($image);
             $path = public_path() . $location;
             if(file_exists($path . $fileName)) {
                 // do nothing
@@ -305,6 +304,30 @@ class BlogController extends Controller
             return $image;
         }
         return $uri;
+    }
+
+    private function checkFileName($image)
+    {
+        // check if the file exists here already
+        $pathArray = explode('/', $image);
+        $fileName = end($pathArray);
+
+        if(!$fileName || startsWith('?', $fileName)) {
+            $imageType = exif_imagetype($image);
+            switch($imageType) {
+                case 1:
+                    $ext = '.gif';
+                    break;
+                case 2:
+                    $ext = '.jpg';
+                    break;
+                case 3:
+                    $ext = '.png';
+                    break;
+            }
+            $fileName = uniqid('blog-', true) . $ext;
+        }
+       return $fileName;
     }
 
     /**
