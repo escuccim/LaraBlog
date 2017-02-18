@@ -290,8 +290,19 @@ class BlogController extends Controller
             // if there's no filename generate one
             $fileName = $this->checkFileName($image);
             $path = public_path() . $location;
+            // if the file is already there return the path
             if(file_exists($path . $fileName)) {
-                // do nothing
+                // we need to check to make sure it's not a different file with the same name
+                $newFileMD5 = md5_file($image);
+                $oldFileMD5 = md5_file($path . $fileName);
+
+                // if the md5s are NOT the same generate a new name and download the image
+                if($newFileMD5 != $oldFileMD5) {
+                    $fileName = $this->generateUniqueFileName($image);
+                    $this->copyRemoteFile($image, $path . $fileName);
+                    $uri = $location . $fileName;
+                }
+
                $uri = $location . $fileName;
             } else {
                 // download the file
@@ -306,26 +317,39 @@ class BlogController extends Controller
         return $uri;
     }
 
+    /**
+     * Generate and return a unique filename
+     * @param $image
+     */
+    private function generateUniqueFileName($image)
+    {
+        $imageType = exif_imagetype($image);
+        switch($imageType) {
+            case 1:
+                $ext = '.gif';
+                break;
+            case 2:
+                $ext = '.jpg';
+                break;
+            case 3:
+                $ext = '.png';
+                break;
+        }
+        $fileName = uniqid('blog-', true) . $ext;
+        return $fileName;
+    }
+
+    /**
+     * Check if there is a filename specified, if yes return it, if not generate a unique one
+     * @param $image
+     * @return mixed|void
+     */
     private function checkFileName($image)
     {
-        // check if the file exists here already
         $pathArray = explode('/', $image);
         $fileName = end($pathArray);
-
-        if(!$fileName || startsWith('?', $fileName)) {
-            $imageType = exif_imagetype($image);
-            switch($imageType) {
-                case 1:
-                    $ext = '.gif';
-                    break;
-                case 2:
-                    $ext = '.jpg';
-                    break;
-                case 3:
-                    $ext = '.png';
-                    break;
-            }
-            $fileName = uniqid('blog-', true) . $ext;
+        if(!$fileName || starts_with('?', $fileName)) {
+            $fileName = $this->generateUniqueFileName($image);
         }
        return $fileName;
     }

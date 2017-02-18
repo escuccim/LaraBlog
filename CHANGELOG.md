@@ -2,6 +2,10 @@
 
 All Notable changes to `larablog` will be documented in this file.
 
+## [Unreleased]
+### Added
+- Put in code to compare MD5 of images to avoid using the wrong image if it has the same name
+
 ##  v1.3.0-beta.1 [2017-02-18]
 ### Added
 - Added ability to download blog images to local server, and config option to determine this
