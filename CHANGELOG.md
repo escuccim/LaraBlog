@@ -11,6 +11,7 @@ All Notable changes to `larablog` will be documented in this file.
 - Added image to display in rich card, if available
 - Added value for rich card logo to config
 - Added ability to download blog images to local server, and config option to determine this
+- Added code to make sure image names are valid and if not create a unique filename
 
 ### Fixed
 - Fixed error where controller was referencing non-existent config file
