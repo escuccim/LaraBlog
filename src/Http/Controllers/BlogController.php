@@ -260,29 +260,15 @@ class BlogController extends Controller
 		
 		return $blog;
 	}
-	
-	/**
-	 * take in tags from drop-down form, check if they exist in DB. if not add them
-	 * then update DB with tags for this article
-	 */
-	private function syncTags(Blog $blog, array $tags) {
-		$tagArray = [];
-		foreach($tags as $tag){
-			$tagId = Tag::where('id', $tag)->first();
-			if($tagId){
-				$tagArray[] = $tag;
-			}
-			else {
-				$newTag = new Tag();
-				$newTag->name = $tag;
-				$newTag->save();
-				$tagArray[] = $newTag->id;
-			}
-		}
-		$blog->tags()->sync($tagArray);
-	}
 
-	private function downloadImage($image)
+    /**
+     * Given a URI for an image:
+     *  check if the image is local
+     *  if not check if there is already a local copy of the file, and if not download it
+     * @param $image
+     * @return string
+     */
+    private function downloadImage($image)
     {
         $location = '/storage/blog_images/';
         // check if image is local already
@@ -303,7 +289,7 @@ class BlogController extends Controller
                     $uri = $location . $fileName;
                 }
 
-               $uri = $location . $fileName;
+                $uri = $location . $fileName;
             } else {
                 // download the file
                 $this->copyRemoteFile($image, $path . $fileName);
@@ -316,6 +302,27 @@ class BlogController extends Controller
         }
         return $uri;
     }
+
+    /**
+	 * take in tags from drop-down form, check if they exist in DB. if not add them
+	 * then update DB with tags for this article
+	 */
+	private function syncTags(Blog $blog, array $tags) {
+		$tagArray = [];
+		foreach($tags as $tag){
+			$tagId = Tag::where('id', $tag)->first();
+			if($tagId){
+				$tagArray[] = $tag;
+			}
+			else {
+				$newTag = new Tag();
+				$newTag->name = $tag;
+				$newTag->save();
+				$tagArray[] = $newTag->id;
+			}
+		}
+		$blog->tags()->sync($tagArray);
+	}
 
     /**
      * Generate and return a unique filename
