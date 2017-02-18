@@ -2,7 +2,15 @@
 
 All Notable changes to `larablog` will be documented in this file.
 
-## Unreleased 
+##  v1.3.0-beta.1 [2017-02-18]
+### Added
+- Added ability to download blog images to local server, and config option to determine this
+- Added code to make sure image names are valid and if not create a unique filename
+
+### Fixed
+- Fixed error where comment form was showing to users who were not logged in
+- Fixed error with sizing of images if specified
+
 ## v.1.2.0-beta.2 [2017-02-12]
 
 ### Added
@@ -10,14 +18,10 @@ All Notable changes to `larablog` will be documented in this file.
 - Added RichCard with JSON data
 - Added image to display in rich card, if available
 - Added value for rich card logo to config
-- Added ability to download blog images to local server, and config option to determine this
-- Added code to make sure image names are valid and if not create a unique filename
 
 ### Fixed
 - Fixed error where controller was referencing non-existent config file
 - Fixed error in date and time display
-- Fixed error where comment form was showing to users who were not logged in
-- Fixed error with sizing of images if specified
 
 ## v1.2.0-beta.1 [2017-01-31]
 
