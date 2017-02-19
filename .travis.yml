@@ -21,7 +21,6 @@ cache:
     - $HOME/.composer/cache
 
 services:
-  - redis-server
   - mysql
 
 before_install:
@@ -36,8 +35,9 @@ install:
 before_script:
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
+  - composer self-update
+  - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate
-
 
 script: vendor/bin/phpunit
