@@ -285,15 +285,25 @@ class BlogController extends Controller
                 // if the md5s are NOT the same generate a new name and download the image
                 if($newFileMD5 != $oldFileMD5) {
                     $fileName = $this->generateUniqueFileName($image);
-                    $this->copyRemoteFile($image, $path . $fileName);
-                    $uri = $location . $fileName;
+                    $attempt = $this->copyRemoteFile($image, $path . $fileName);
+                    // if the download was successful return the new location, else return the image as entered into the form
+                    if($attempt) {
+                        $uri = $location . $fileName;
+                    } else {
+                        $uri = $image;
+                    }
                 }
 
                 $uri = $location . $fileName;
             } else {
                 // download the file
-                $this->copyRemoteFile($image, $path . $fileName);
-                $uri = $location . $fileName;
+                $attempt = $this->copyRemoteFile($image, $path . $fileName);
+                // if the download was successful return the new location, else return the image as entered into the form
+                if($attempt) {
+                    $uri = $location . $fileName;
+                } else {
+                    $uri = $image;
+                }
             }
         }
         // else the file is local so don't do anything
@@ -302,27 +312,6 @@ class BlogController extends Controller
         }
         return $uri;
     }
-
-    /**
-	 * take in tags from drop-down form, check if they exist in DB. if not add them
-	 * then update DB with tags for this article
-	 */
-	private function syncTags(Blog $blog, array $tags) {
-		$tagArray = [];
-		foreach($tags as $tag){
-			$tagId = Tag::where('id', $tag)->first();
-			if($tagId){
-				$tagArray[] = $tag;
-			}
-			else {
-				$newTag = new Tag();
-				$newTag->name = $tag;
-				$newTag->save();
-				$tagArray[] = $newTag->id;
-			}
-		}
-		$blog->tags()->sync($tagArray);
-	}
 
     /**
      * Generate and return a unique filename
@@ -368,6 +357,24 @@ class BlogController extends Controller
      * @return bool
      */
     private function copyRemoteFile($fromUrl, $toFile) {
+        // make sure the directory exists
+        $toPath = explode('/', $toFile);
+        array_pop($toPath);
+        $path = implode('/', $toPath);
+
+        // if the directory doesn't exist create it
+        if(!file_exists($path)) {
+            try {
+                $attempt = mkdir($path);
+            } catch (Exception $e) {
+                return false;
+            }
+            if(!$attempt) {
+                return false;
+            }
+        }
+
+        // get the file
         try {
             $client = new \GuzzleHttp\Client();
             $request = $client->get($fromUrl, ['save_to' => $toFile]);
@@ -399,6 +406,27 @@ class BlogController extends Controller
             'height'    => $height,
             'width'     => $width
         ];
+    }
+
+    /**
+     * take in tags from drop-down form, check if they exist in DB. if not add them
+     * then update DB with tags for this article
+     */
+    private function syncTags(Blog $blog, array $tags) {
+        $tagArray = [];
+        foreach($tags as $tag){
+            $tagId = Tag::where('id', $tag)->first();
+            if($tagId){
+                $tagArray[] = $tag;
+            }
+            else {
+                $newTag = new Tag();
+                $newTag->name = $tag;
+                $newTag->save();
+                $tagArray[] = $newTag->id;
+            }
+        }
+        $blog->tags()->sync($tagArray);
     }
 
 	/**
