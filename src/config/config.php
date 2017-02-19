@@ -12,4 +12,5 @@ return [
     'logo'      => 'images/logo.png',
     'include_amp_href'  => true,
     'download_images'   => true,
+    'image_directory'   => '/storage/blog_images/',
 ];

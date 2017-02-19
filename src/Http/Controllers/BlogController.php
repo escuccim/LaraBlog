@@ -268,9 +268,9 @@ class BlogController extends Controller
      * @param $image
      * @return string
      */
-    private function downloadImage($image)
+    public function downloadImage($image)
     {
-        $location = '/storage/blog_images/';
+        $location = config('blog.image_directory');
         // check if image is local already
         if(str_contains($image, 'http')) {
             // if there's no filename generate one
@@ -344,7 +344,7 @@ class BlogController extends Controller
     {
         $pathArray = explode('/', $image);
         $fileName = end($pathArray);
-        if(!$fileName || starts_with('?', $fileName)) {
+        if(!$fileName || starts_with($fileName, '?')) {
             $fileName = $this->generateUniqueFileName($image);
         }
        return $fileName;

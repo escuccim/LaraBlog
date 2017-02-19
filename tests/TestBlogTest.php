@@ -6,7 +6,7 @@ use Escuccim\LaraBlog\Models\Tag;
 use Escuccim\LaraBlog\Models\Blog;
 use Escuccim\LaraBlog\Models\BlogComment;
 
-class TestBlogTest extends BrowserKitTest
+class BlogTest extends BrowserKitTest
 {
     use DatabaseTransactions;
 
@@ -130,6 +130,7 @@ class TestBlogTest extends BrowserKitTest
             ->type($data['title'], 'title')
             ->type($data['slug'], 'slug')
             ->type($data['body'], 'body')
+//            ->type($data['image'], 'image')
             ->select($test, 'tags')
             ->press(html_entity_decode(trans('larablog::blog.addpost')))
             ->see('Your blog has been created')
@@ -304,6 +305,66 @@ class TestBlogTest extends BrowserKitTest
         ]);
     }
 
+    public function testImageDownloads()
+    {
+        if (config('blog.download_images')) {
+            // generate a URI to test with
+            $faker = Faker\Factory::create();
+            $image = $faker->imageUrl(100, 100);
+
+            // download an image from remote URI
+            $uri = app(Escuccim\LaraBlog\Http\Controllers\BlogController::class)->downloadImage($image);
+            // make sure the image exists
+            $this->assertTrue(file_exists(public_path() . $uri));
+
+            // download the same image and check that it is written with a new name
+            $image2 = $faker->imageUrl(100, 100);
+            $uri2 = app(Escuccim\LaraBlog\Http\Controllers\BlogController::class)->downloadImage($image);
+            $this->assertTrue(file_exists(public_path() . $uri2));
+            $this->assertTrue($uri != $uri2);
+
+            // delete the images
+            unlink(public_path() . $uri);
+            unlink(public_path() . $uri2);
+
+            // download an image where the directory doesn't exist
+            config(['blog.image_directory' => '/storage/foobarbork-fakedirectory/']);
+            $image = $faker->imageUrl(100, 100);
+            $uri = app(Escuccim\LaraBlog\Http\Controllers\BlogController::class)->downloadImage($image);
+
+            // check that the directory exists
+            $this->assertTrue(file_exists(public_path() . '/storage/foobarbork-fakedirectory'));
+            // check that the file exists
+            $this->assertTrue(file_exists(public_path() . $uri));
+
+            // last thing to test is that downloading two images with same name they aren't overwritten
+            $image2 = 'https://www.google.com/images/nav_logo280_hr.png';
+            // rename the image that's there
+            rename(public_path() . $uri, public_path() . config('blog.image_directory') . 'nav_logo280_hr.png');
+
+            // download the image
+            $uri2 = app(Escuccim\LaraBlog\Http\Controllers\BlogController::class)->downloadImage($image2);
+
+            // make sure the images aren't the same
+            $this->assertTrue($uri2 != $uri);
+
+            // delete the images
+            unlink(public_path() . config('blog.image_directory') . 'nav_logo280_hr.png');
+            unlink(public_path() . $uri2);
+
+            // download the same image twice and make sure it only creates one copy
+            $uri = app(Escuccim\LaraBlog\Http\Controllers\BlogController::class)->downloadImage($image2);
+            $uri2 = app(Escuccim\LaraBlog\Http\Controllers\BlogController::class)->downloadImage($image2);
+
+            $this->assertTrue($uri == $uri2);
+
+            // delete the images
+            unlink(public_path() . $uri);
+            // delete the directory
+            rmdir(public_path() . '/storage/foobarbork-fakedirectory');
+        }
+    }
+
     private function addOrGetTestLabel(){
         // get id of tag for test
         $test = Tag::where('name', 'test')->first();
@@ -330,6 +391,7 @@ class TestBlogTest extends BrowserKitTest
 
         $text = $faker->paragraphs(3, true);
         $title = $faker->sentence;
+        $image = $faker->imageUrl(100,100);
         $slug = str_slug($title);
         $published_at = date('Y-m-d', strtotime("-1 days"));
 
@@ -338,6 +400,9 @@ class TestBlogTest extends BrowserKitTest
             'slug'  => $slug,
             'body'  => $text,
             'published' => 1,
+//            'image' => $image,
+//            'image_height'  => 100,
+//            'image_width'   => 100,
             'published_at'  => $published_at,
             'user_id'   => $this->createTestUser()->id,
         ];

@@ -7,6 +7,7 @@ All Notable changes to `larablog` will be documented in this file.
 - Put in code to compare MD5 of images to avoid using the wrong image if it has the same name
 - Added code to create directory it's downloading images to, so it doesn't fail if directory doesn't exist
 - Added code to trap errors in downloading and saving files
+- Moved location to download images to to config file
 
 ##  v1.3.0-beta.1 [2017-02-18]
 ### Added
