@@ -8,6 +8,7 @@ All Notable changes to `larablog` will be documented in this file.
 - Added code to create directory it's downloading images to, so it doesn't fail if directory doesn't exist
 - Added code to trap errors in downloading and saving files
 - Moved location to download images to to config file
+- Updated tests to test image download stuff
 
 ##  v1.3.0-beta.1 [2017-02-18]
 ### Added
