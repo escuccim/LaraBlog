@@ -9,6 +9,8 @@ All Notable changes to `larablog` will be documented in this file.
 - Added code to trap errors in downloading and saving files
 - Moved location to download images to to config file
 - Updated tests to test image download stuff
+- Replaced admin alias in config file with call to actual middleware, eliminating a step in installation
+
 
 ##  v1.3.0-beta.1 [2017-02-18]
 ### Added

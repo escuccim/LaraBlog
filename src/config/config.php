@@ -6,7 +6,7 @@ return [
     'blog_feed_description' => 'Blog Feed Description',
     'cache' => false,
     'show_flash_messages' => false,
-    'middleware'    => 'admin',
+    'middleware'    => \Escuccim\LaraBlog\Middleware\AdminMiddleware::class,
     'is_user_admin' => 'isUserAdmin',
     'use_rich_card' => true,
     'logo'      => 'images/logo.png',

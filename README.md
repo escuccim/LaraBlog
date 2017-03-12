@@ -29,12 +29,9 @@ And add the following to the aliases array:
 'Feed' => Roumen\Feed\Feed::class,
 ```
 
-This package uses a middleware to determine what pages the user has access to. By default it uses my middleware which uses a flag in the Users table to indicate whether the user is an admin. To use this, add the following to /app/Http/Kernel.php:
-```
-'admin' => \Escuccim\LaraBlog\Middleware\AdminMiddleware::class,
-```
+This package uses a middleware to determine what pages the user has access to. By default it uses my middleware which uses a flag in the Users table to indicate whether the user is an admin. 
 
-If you wish to use a different middleware change the 'middleware' key in config/blog.php to be the name of the middleware you want to use.
+If you wish to use a different middleware change the 'middleware' key in config/blog.php to be the class of or an alias to the middleware you wish to use.
 
 Run the migrations which will create the necessary database tables and add a few columns to the users table. 
 
